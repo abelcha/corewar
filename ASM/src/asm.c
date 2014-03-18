@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Tue Mar 18 19:34:03 2014 
+** Last update Tue Mar 18 19:59:57 2014 
 */
 
 #include <fcntl.h>
@@ -37,10 +37,6 @@ int		is_legit(char *str)
       else
 	return (TRUE);
     }
-    /* { */
-    /*   if (str[i] != '#' && str[i] != ' ' && str[i] != '\t' && str[i] != ';') */
-    /* 	return (TRUE); */
-    /* } */
   return (FALSE);
 }
 
@@ -126,8 +122,7 @@ int		main(int ac, char **av)
   char		**stock;
   int		i;
   t_info	*info;
-  t_list	*list;
-
+  t_list        *list;
   i = -1;
   stock = calloc(4096, sizeof(char *));
   fd = open(av[1], O_RDONLY);
@@ -146,11 +141,6 @@ int		main(int ac, char **av)
       {
 	stock[i] = ls_joint(stock[i], gnl(fd));
       }
-  info = get_info(stock, info);
-  list = malloc(sizeof(t_list));
+  //  info = get_info(stock, info);
   asm_parsing(list, stock);
-
-  //  get_info(stock, &info);
 }
-
-

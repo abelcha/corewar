@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 19:08:43 2014 
-** Last update Tue Mar 18 12:52:25 2014 
+** Last update Tue Mar 18 20:57:08 2014 
 */
 
 #include "op.h"
@@ -55,23 +55,21 @@ int		split_list(char *line, t_args *args)
   char		**stock;
 
   j = -1;
-  if (!line)
-    return (FAILURE);
+  //  if (!line)
+  //return (FAILURE);
   args->label = NULL;
   x = cut_label(line, args/* ->label) */);
   i = x;
-  stock = calloc(count_sep(line), sizeof(char *));
+  args->args = calloc(count_sep(line), sizeof(char *));
   while (line[++i])
     {
       if (line[i] == ' ' || line[i] == ',')
 	{
 	  line[i] = '\0';
-	  stock[++j] = strdup(&line[x]);
+	  args->args[++j] = strdup(&line[x]);
 	  x = i + 1;
 	}
       if (line[i + 1] == 0)
-	stock[++j] = strdup(&line[x]);
+	args->args[++j] = strdup(&line[x]);
     }
-  //stock[++j] = strdup(&line[x + 1]);
-  printf("=================\n");
 }

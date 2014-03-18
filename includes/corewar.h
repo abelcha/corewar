@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Tue Mar 18 12:35:44 2014 
+** Last update Tue Mar 18 20:34:58 2014 
 */
 
 #ifndef _COREWAR_H_
@@ -19,7 +19,8 @@
 /*
 ** TEMPORARY DEFINES
 */
-
+#define X printf("lol\n");
+#define Z printf("HERE\n");
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
