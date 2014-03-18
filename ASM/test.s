@@ -4,8 +4,7 @@ entry:
 	sti			r1, %:avdef, %1
 	sti			r1, %:entry_l1, %1
 	ld			%0, r16
-	for
-	   k		%:zork
+	fork		%:zork
 
 entry_l1:
 	live		%42

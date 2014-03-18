@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Mar 18 12:12:34 2014 
-** Last update Tue Mar 18 20:46:23 2014 
+** Last update Tue Mar 18 21:34:22 2014 dong_n
 */
 
 #include "op.h"
@@ -18,9 +18,8 @@ int	which_instruction(char *str)
   i = -1;
   while (++i < 16)
     {
-      X
       if (!strcmp(op_tab[i].name, str))
-	return (i);
+	return (i + 1);
     }
   return (UNKNOWN);
 }

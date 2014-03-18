@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Tue Mar 18 21:18:24 2014 dong_n
+** Last update Tue Mar 18 21:34:45 2014 dong_n
 */
 
 #include "op.h"
@@ -16,11 +16,9 @@ int	line_parsing(t_args *args, t_list *list)
   int	ins_num;
 
   printf("%s\n", args->args[0]);
-  puts("hueheuhu\n");
   ins_num = which_instruction(args->args[0]);
-  puts("ruru\n");
   if (ins_num == UNKNOWN)
-      return (FAILURE);
+    return (FAILURE);
   printf("inst = %s, num = %d\n",args->args[0], ins_num);
   /*
     fill_list(args, list);
@@ -46,8 +44,9 @@ int	asm_parsing(t_list *list, char **stock)
 	  printf("stock[i] = null\n");
 	  return (FAILURE);
 	}
-	  //line_parsing(args, list);
-      printf("<<%s>>\n", args->args[0]);
+      if (line_parsing(args, list) == FAILURE)
+	return (FAILURE);
+      /* printf("<<%s>>\n", args->args[0]); */
     }
   return (SUCCESS);
 }
