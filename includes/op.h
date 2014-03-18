@@ -53,22 +53,26 @@ typedef struct	s_op
   char		*comment;
 }		t_op;
 
+typedef struct	s_param
+{
+  int		type;
+  int		param;
+}		t_param;
+
 typedef struct	s_list
 {
-  char		nbr_args; //nbr d'arguments en parametres
-  int		type[MAX_ARGS_NUMBER];
-  int		args[MAX_ARGS_NUMBER];
+  t_param	param[MAX_ARGS_NUMBER];
   int		num;
   char		*label; // -> NULL si il n'y en a pas / label associé
   struct s_list	*next;
   struct s_list	*prev;
-}t_list;
+}		t_list;
 
 typedef struct	s_args
 {
   char		**args;
   char		*label;
-}t_args;
+}		t_args;
 
 /*
  ** size
