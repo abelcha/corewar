@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Tue Mar 18 19:59:57 2014 
+** Last update Tue Mar 18 21:15:31 2014 dong_n
 */
 
 #include <fcntl.h>
@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "op.h"
+#include "my.h"
 #include "corewar.h"
 
 char	*gnl(int);
@@ -67,10 +68,12 @@ int		get_info(char **stock, t_info **info)
   while (stock[++i] && (j = -1))
     while (stock[i][++j])
       if (stock[i][j] == '.')
-	if (!strncmp(&(stock[i][j + 1]), "name", 4))
-	  strcpy((*info)->filename, cut_double_quotes(&(stock[i][j + 1])));
-	else if (!strncmp(&(stock[i][j + 1]), "comment", 6))
-          strcpy((*info)->comment, cut_double_quotes(&stock[i][j + 1]));
+	{
+	  if (!strncmp(&(stock[i][j + 1]), "name", 4))
+	    strcpy((*info)->filename, cut_double_quotes(&(stock[i][j + 1])));
+	  else if (!strncmp(&(stock[i][j + 1]), "comment", 6))
+	    strcpy((*info)->comment, cut_double_quotes(&stock[i][j + 1]));
+	}
   return (SUCCESS);
 }
 
@@ -99,6 +102,7 @@ int		only_label(char *str)
       else if (str[i] != ' ' && str[i] != '\t')
 	return (FALSE);
     }
+  return (FALSE);
 }
 
 char		*ls_joint(char *str1, char *str2)
@@ -130,13 +134,13 @@ int		main(int ac, char **av)
     {
       printf("no such file\n");
       return (FAILURE);
-    } 
+    }
   while ((stock[++i] = gnl(fd)))
     if (is_legit(stock[i]) == FALSE)
       {
 	free(stock[i]);
 	i--;
-      }   
+      }
     else if (only_label(stock[i]) == TRUE)
       {
 	stock[i] = ls_joint(stock[i], gnl(fd));

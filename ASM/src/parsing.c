@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Tue Mar 18 20:57:18 2014 
+** Last update Tue Mar 18 21:18:24 2014 dong_n
 */
 
 #include "op.h"
@@ -24,8 +24,8 @@ int	line_parsing(t_args *args, t_list *list)
   printf("inst = %s, num = %d\n",args->args[0], ins_num);
   /*
     fill_list(args, list);
-    return (SUCCESS);
   */
+  return (SUCCESS);
 }
 
 int	asm_parsing(t_list *list, char **stock)
@@ -43,10 +43,11 @@ int	asm_parsing(t_list *list, char **stock)
       printf("--%s--\n", stock[i]);
       if (split_list(stock[i], args) == FAILURE)
 	{
-	  printf("stock{i] = null\n");
+	  printf("stock[i] = null\n");
 	  return (FAILURE);
 	}
 	  //line_parsing(args, list);
       printf("<<%s>>\n", args->args[0]);
     }
+  return (SUCCESS);
 }

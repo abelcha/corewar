@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 19:08:43 2014 
-** Last update Tue Mar 18 20:57:08 2014 
+** Last update Tue Mar 18 21:19:49 2014 dong_n
 */
 
 #include "op.h"
@@ -23,7 +23,7 @@ int	cut_label(char *line, t_args *args/* char **label */)
     {
       if (line[i] == ':')
 	{
-	  args->label = strndup(line, i); 
+	  args->label = strndup(line, i);
 	  return (i + 2);
 	}
       if (line[i] == ' ')
@@ -32,6 +32,7 @@ int	cut_label(char *line, t_args *args/* char **label */)
 	  return (0);
 	}
     }
+  return (0);
 }
 
 int	count_sep(char *str)
@@ -55,8 +56,8 @@ int		split_list(char *line, t_args *args)
   char		**stock;
 
   j = -1;
-  //  if (!line)
-  //return (FAILURE);
+  if (!line)
+    return (FAILURE);
   args->label = NULL;
   x = cut_label(line, args/* ->label) */);
   i = x;
@@ -72,4 +73,5 @@ int		split_list(char *line, t_args *args)
       if (line[i + 1] == 0)
 	args->args[++j] = strdup(&line[x]);
     }
+  return (SUCCESS);
 }
