@@ -56,10 +56,12 @@ typedef struct	s_op
 typedef struct	s_list
 {
   char		nbr_args; //nbr d'arguments en parametres
-  char		type[MAX_ARGS_NUMBER];
-  char		code;
+  int		type[MAX_ARGS_NUMBER];
+  int		args[MAX_ARGS_NUMBER];
+  int		num;
   char		*label; // -> NULL si il n'y en a pas / label associé
-  struct op_s	*next;
+  struct s_list	*next;
+  struct s_list	*prev;
 }t_list;
 
 typedef struct	s_args
@@ -93,7 +95,7 @@ extern  t_op    op_tab[];
 struct header_s
 {
    int  magic;
-#define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
+# define COREWAR_EXEC_MAGIC      0xea83f3	/* why not */
    char prog_name[PROG_NAME_LENGTH+1];
    int  prog_size;
    char comment[COMMENT_LENGTH+1];

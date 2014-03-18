@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Tue Mar 18 12:41:52 2014 
+** Last update Tue Mar 18 19:34:03 2014 
 */
 
 #include <fcntl.h>
@@ -146,6 +146,7 @@ int		main(int ac, char **av)
       {
 	stock[i] = ls_joint(stock[i], gnl(fd));
       }
+  info = get_info(stock, info);
   list = malloc(sizeof(t_list));
   asm_parsing(list, stock);
 
