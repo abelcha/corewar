@@ -5,10 +5,10 @@
 ## Login   <dong_n@epitech.net>
 ## 
 ## Started on  Mon Mar 17 18:59:53 2014 dong_n
-## Last update Mon Mar 17 21:17:26 2014 
+## Last update Mon Mar 17 23:56:07 2014 
 ##
 
-CC	=	clang -O3
+CC	=	clang -O3 -g3
 
 NAME	=	asm
 
@@ -16,6 +16,7 @@ SRC	=	src/epur.c		\
 		src/asm.c		\
 		src/op.c		\
 		src/parsing.c		\
+		src/instruction_tab.c	\
 		src/split_list.c
 
 LIB	=	../lib/my_putchar.c	\

@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Mon Mar 17 21:31:37 2014 
+** Last update Tue Mar 18 12:41:52 2014 
 */
 
 #include <fcntl.h>
@@ -22,6 +22,27 @@ typedef struct s_info
   char	filename[128];
   char	comment[2048];
 } t_info;
+
+int		is_legit(char *str)
+{
+  int		i;
+
+  i = -1;
+  while (str[++i])
+    {
+      while (!(str[i] > 32 && str[i] < 127) && str[i] != '\0')
+	i++;
+      if (str[i] == '#' || str[i] == ';' || str[i] == '\0')
+	return (FALSE);
+      else
+	return (TRUE);
+    }
+    /* { */
+    /*   if (str[i] != '#' && str[i] != ' ' && str[i] != '\t' && str[i] != ';') */
+    /* 	return (TRUE); */
+    /* } */
+  return (FALSE);
+}
 
 char		*cut_double_quotes(char	*str)
 {
@@ -70,6 +91,35 @@ void		header_handler(t_info *info)
     printf("%x", info->comment[i]);
 }
 
+int		only_label(char *str)
+{
+  int		i;
+
+  i = my_strlen(str);
+  while (--i > 0)
+    {
+      if (str[i] == ':')
+	return (TRUE);
+      else if (str[i] != ' ' && str[i] != '\t')
+	return (FALSE);
+    }
+}
+
+char		*ls_joint(char *str1, char *str2)
+{
+  char		*tmp;
+
+  if (!str2)
+    return (str1);
+  tmp = calloc(my_strlen(str1) + my_strlen(str2) + 2, sizeof(char));
+  strcpy(tmp, str1);
+  strcat(tmp, " ");
+  strcat(tmp, str2);
+  free(str1);
+  free(str2);
+  return (tmp);
+}
+
 int		main(int ac, char **av)
 {
   int		fd;
@@ -86,7 +136,16 @@ int		main(int ac, char **av)
       printf("no such file\n");
       return (FAILURE);
     } 
-  while ((stock[++i] = gnl(fd)));
+  while ((stock[++i] = gnl(fd)))
+    if (is_legit(stock[i]) == FALSE)
+      {
+	free(stock[i]);
+	i--;
+      }   
+    else if (only_label(stock[i]) == TRUE)
+      {
+	stock[i] = ls_joint(stock[i], gnl(fd));
+      }
   list = malloc(sizeof(t_list));
   asm_parsing(list, stock);
 
