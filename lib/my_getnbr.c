@@ -1,11 +1,11 @@
 /*
 ** my_getnbr.c for my_getnbr in /home/dong_n/rendu/Piscine-C-colles-Semaine_02
 ** 
-** Made by david$
+** Made by david
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Sat Oct 12 16:42:56 2013 david$
-** Last update Wed Mar 19 01:20:43 2014 
+** Last update Wed Mar 19 01:34:59 2014 
 */
 
 int	limits(int c, int sign, int *nbr)
