@@ -14,9 +14,11 @@ NAME	=	asm
 
 SRC	=	src/epur.c		\
 		src/asm.c		\
+		src/get_params.c	\
 		src/op.c		\
 		src/my_list.c		\
 		src/parsing.c		\
+		src/show_list.c		\
 		src/instruction_tab.c	\
 		src/split_list.c
 
@@ -24,6 +26,7 @@ LIB	=	../lib/my_putchar.c	\
 		../lib/my_putstr.c	\
 		../lib/my_strlen.c	\
 		../lib/my_put_nbr.c	\
+		../lib/x_error.c	\
 		../lib/my_getnbr.c	\
 		../lib/my_strcmp.c	\
 		../lib/my_strcpy.c	\

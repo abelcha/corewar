@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Wed Mar 19 01:13:38 2014 
+** Last update Wed Mar 19 03:48:28 2014 
 */
 
 #ifndef _COREWAR_H_
@@ -26,6 +26,13 @@
 #include <stdio.h>
 # include "op.h"
 
+t_list	*init_list(void);
+void	show_list(t_list *);
+int     get_param_value(char *str, int num);
+int     get_param_type(char *str, int num);
+int	add_elem_prev(t_list *elem, t_args *args, int num);
+int	add_elem_next(t_list *elem, t_args *args, int num);
+int	my_delete_elem(t_list *list);
 int	line_parsing(t_args *args, t_list *list);
 int	asm_parsing(t_list *list, char **stock);
 int	split_list(char *line, t_args *args);

@@ -5,11 +5,12 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Mar 18 12:12:34 2014 
-** Last update Tue Mar 18 21:34:22 2014 dong_n
+** Last update Wed Mar 19 04:34:19 2014 
 */
 
 #include "op.h"
 #include "corewar.h"
+#include "x_error.h"
 
 int	which_instruction(char *str)
 {
@@ -21,5 +22,5 @@ int	which_instruction(char *str)
       if (!strcmp(op_tab[i].name, str))
 	return (i + 1);
     }
-  return (UNKNOWN);
+  return (X_ERROR(str, INV_INST));
 }

@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Mon Mar 17 19:00:51 2014 dong_n
-** Last update Mon Mar 17 21:33:04 2014 
+** Last update Wed Mar 19 02:02:46 2014 
 */
 
 #include <unistd.h>
@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "x_error.h"
 #include "my.h"
 
 char	*epur_str(char *str)
@@ -22,7 +23,7 @@ char	*epur_str(char *str)
   int	i;
 
   if (!(ret = malloc(sizeof(*ret) * (my_strlen(str) + 1))))
-    return (NULL);
+    return (ERROR_(MALLOC_FAIL));
   i = 0;
   k = 0;
   while (str[i] != '\0' && str[i] != '#' && str[i] != ';')

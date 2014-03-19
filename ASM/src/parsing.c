@@ -5,11 +5,13 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Wed Mar 19 01:52:24 2014 dong_n
+** Last update Wed Mar 19 04:08:38 2014 
 */
 
 #include "op.h"
 #include "corewar.h"
+#include "x_error.h"
+#include "x_colors.h"
 
 int		line_parsing(t_args *args, t_list *list)
 {
@@ -18,30 +20,9 @@ int		line_parsing(t_args *args, t_list *list)
   ins_num = which_instruction(args->args[0]);
   if (ins_num == UNKNOWN)
     return (FAILURE);
-  add_elem_prev(list, args, ins_num);
+  if (add_elem_prev(list, args, ins_num) == FAILURE)
+    return (FAILURE);
   return (SUCCESS);
-}
-
-int		show_list(t_list *list)
-{
-  t_list	*tmp;
-  int		i;
-
-  tmp = list->next;
-  while (tmp != list)
-    {
-      printf("Num = %d, label = %s\n", tmp->num, tmp->label);
-      i = 0;
-      while (i < op_tab[tmp->num - 1].nbr_args)
-	{
-	  printf("%d  ", tmp->param[i].type);
-	  printf("%d   ", tmp->param[i].param);
-	  i++;
-	}
-      printf("\n\n");
-      tmp = tmp->next;
-    }
-  return (0);
 }
 
 int		asm_parsing(t_list *list, char **stock)
@@ -52,9 +33,9 @@ int		asm_parsing(t_list *list, char **stock)
 
   i = -1;
   args = malloc(sizeof(t_args));
-  list = init_list(list);
+  list = init_list();
   if (!list || !args)
-    return (FAILURE);
+    return (ERROR(MALLOC_FAIL));
   while (stock[++i])
     {
       stock[i] = epur_str(stock[i]);

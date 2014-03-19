@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Tue Mar 18 21:15:31 2014 dong_n
+** Last update Wed Mar 19 05:53:04 2014 
 */
 
 #include <fcntl.h>
@@ -15,9 +15,9 @@
 #include "op.h"
 #include "my.h"
 #include "corewar.h"
-
+#include "x_error.h"
 char	*gnl(int);
-
+int	extended = FALSE;
 typedef struct s_info
 {
   char	filename[128];
@@ -55,45 +55,31 @@ char		*cut_double_quotes(char	*str)
   return (tmp);
 }
 
-int		get_info(char **stock, t_info **info)
+int		get_info(char *stock, t_info *info)
 {
-  int		i;
   int		j;
 
-  if (!(*info = malloc(sizeof(t_info))))
-    return (FAILURE);
-  memset((*info)->filename, 0, 128);
-  memset((*info)->comment, 0, 2048);
-  i = -1;
-  while (stock[++i] && (j = -1))
-    while (stock[i][++j])
-      if (stock[i][j] == '.')
-	{
-	  if (!strncmp(&(stock[i][j + 1]), "name", 4))
-	    strcpy((*info)->filename, cut_double_quotes(&(stock[i][j + 1])));
-	  else if (!strncmp(&(stock[i][j + 1]), "comment", 6))
-	    strcpy((*info)->comment, cut_double_quotes(&stock[i][j + 1]));
-	}
-  return (SUCCESS);
-}
-
-void		header_handler(t_info *info)
-{
-  int	i;
-
-  i = -1;
-  printf("0xea83f3");
-  while (++i < 128)
-    printf("%x", info->filename[i]);
-  i = -1;
-  while (++i < 2048)
-    printf("%x", info->comment[i]);
+  j = -1;
+  while (stock[++j])
+    if (stock[j] == '.')
+      {
+	if (!strncmp(&(stock[j + 1]), "name", 4))
+	  strcpy(info->filename, cut_double_quotes(&(stock[j + 1])));
+	else if (!strncmp(&(stock[j + 1]), "comment", 6))
+	  strcpy(info->comment, cut_double_quotes(&stock[j + 1]));
+	else if (!strncmp(&(stock[j + 1]), "extended", 6))
+	  extended = TRUE;
+	else
+	  printf("Warning : Unknown extension '%s'\n", stock);
+	break;
+      }
+  return (TRUE);
 }
 
 int		only_label(char *str)
 {
   int		i;
-
+  
   i = my_strlen(str);
   while (--i > 0)
     {
@@ -105,6 +91,33 @@ int		only_label(char *str)
   return (FALSE);
 }
 
+int		first_points(char *str, t_info *info)
+{
+  int		i;
+
+  i = -1;
+  while (str[++i])
+    if (str[i] == '\t' || str[i] == ' ');
+    else if (str[i] == '.')
+      return (get_info(str, info));
+    else
+      return (FALSE);
+  return (FALSE);
+}
+
+int		open_file(char *str)
+{
+  int	fd;
+  int	len;
+
+  len = my_strlen(str) - 1;
+  if (len < 3 || str[len] != 's' || str[len - 1] != '.')
+    return (X_ERROR(str, FILE_EXT));
+  fd = open(str, O_RDONLY);
+  if (fd == -1)
+    return (X_ERROR(str, NO_FILE));
+  return (fd);
+}
 char		*ls_joint(char *str1, char *str2)
 {
   char		*tmp;
@@ -128,23 +141,21 @@ int		main(int ac, char **av)
   t_info	*info;
   t_list        *list;
   i = -1;
+
+  info = malloc(sizeof(t_info));
+  if ((fd = open_file(av[1])) == FAILURE)
+    return (FAILURE);
   stock = calloc(4096, sizeof(char *));
-  fd = open(av[1], O_RDONLY);
-  if (fd == -1)
-    {
-      printf("no such file\n");
-      return (FAILURE);
-    }
   while ((stock[++i] = gnl(fd)))
-    if (is_legit(stock[i]) == FALSE)
+    if (is_legit(stock[i]) == FALSE || first_points(stock[i], info) == TRUE)
       {
 	free(stock[i]);
 	i--;
       }
     else if (only_label(stock[i]) == TRUE)
-      {
-	stock[i] = ls_joint(stock[i], gnl(fd));
-      }
-  //  info = get_info(stock, info);
+      stock[i] = ls_joint(stock[i], gnl(fd));
+  printf("\n\tFilename = '%s'\n", info->filename);
+  printf("\tComment = '%s'\n", info->comment);
+  printf(extended == TRUE ? "\tExtended = TRUE\n" : "\tExtended = FALSE\n");
   asm_parsing(list, stock);
 }
