@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Wed Mar 19 01:34:38 2014 
+** Last update Wed Mar 19 01:52:24 2014 dong_n
 */
 
 #include "op.h"
@@ -27,18 +27,21 @@ int		show_list(t_list *list)
   t_list	*tmp;
   int		i;
 
-  tmp = list;
+  tmp = list->next;
   while (tmp != list)
     {
-      printf("Num = %d, label = %s\n", list->num, list->label);
+      printf("Num = %d, label = %s\n", tmp->num, tmp->label);
       i = 0;
-      while (i < op_tab[list->num - 1].nbr_args)
+      while (i < op_tab[tmp->num - 1].nbr_args)
 	{
-	  printf("%d", list->param[i].type);
-	  printf("%d", list->param[i].param);
+	  printf("%d  ", tmp->param[i].type);
+	  printf("%d   ", tmp->param[i].param);
 	  i++;
 	}
+      printf("\n\n");
+      tmp = tmp->next;
     }
+  return (0);
 }
 
 int		asm_parsing(t_list *list, char **stock)
