@@ -5,48 +5,61 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Tue Mar 18 21:34:45 2014 dong_n
+** Last update Wed Mar 19 01:10:18 2014 
 */
 
 #include "op.h"
 #include "corewar.h"
 
-int	line_parsing(t_args *args, t_list *list)
+int		line_parsing(t_args *args, t_list *list)
 {
-  int	ins_num;
+  int		ins_num;
 
-  printf("%s\n", args->args[0]);
   ins_num = which_instruction(args->args[0]);
   if (ins_num == UNKNOWN)
     return (FAILURE);
-  printf("inst = %s, num = %d\n",args->args[0], ins_num);
-  /*
-    fill_list(args, list);
-  */
+  add_elem_prev(list, args, ins_num);
   return (SUCCESS);
 }
 
-int	asm_parsing(t_list *list, char **stock)
+int		show_list(t_list *list)
+{
+  t_list	*tmp;
+  int		i;
+
+  tmp = list;
+  while (tmp != list)
+    {
+      printf("Num = %d, label = %s\n", list->num, list->label);
+      i = 0;
+      while (i < op_tab[list->num - 1].nbr_args)
+	{
+	  printf("%d", list->param[i].type);
+	  printf("%d", list->param[i].param);
+	  i++;
+	}
+    }
+}
+
+int		asm_parsing(t_list *list, char **stock)
 {
   int		i;
   int		cmp;
   t_args	*args;
 
-  if (!(args = malloc(sizeof(t_args))))
-    return (FAILURE);
   i = -1;
+  args = malloc(sizeof(t_args));
+  list = init_list(list);
+  if (!list || !args)
+    return (FAILURE);
   while (stock[++i])
     {
       stock[i] = epur_str(stock[i]);
-      printf("--%s--\n", stock[i]);
       if (split_list(stock[i], args) == FAILURE)
-	{
-	  printf("stock[i] = null\n");
-	  return (FAILURE);
-	}
+	return (FAILURE);
       if (line_parsing(args, list) == FAILURE)
 	return (FAILURE);
-      /* printf("<<%s>>\n", args->args[0]); */
     }
+  show_list(list);
   return (SUCCESS);
 }

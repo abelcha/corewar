@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Tue Mar 18 21:37:11 2014 dong_n
+** Last update Wed Mar 19 01:13:38 2014 
 */
 
 #ifndef _COREWAR_H_
@@ -24,6 +24,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+# include "op.h"
 
 int	line_parsing(t_args *args, t_list *list);
 int	asm_parsing(t_list *list, char **stock);

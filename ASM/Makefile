@@ -15,6 +15,7 @@ NAME	=	asm
 SRC	=	src/epur.c		\
 		src/asm.c		\
 		src/op.c		\
+		src/my_list.c		\
 		src/parsing.c		\
 		src/instruction_tab.c	\
 		src/split_list.c

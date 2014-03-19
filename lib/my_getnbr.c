@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Sat Oct 12 16:42:56 2013 david$
-** Last update Tue Jan 14 17:59:12 2014 david$
+** Last update Wed Mar 19 01:20:43 2014 
 */
 
 int	limits(int c, int sign, int *nbr)
@@ -33,7 +33,7 @@ int	posneg(char *str, int *i)
   int	sign;
 
   sign = 1;
-  while (str[*i] == '+' || str[*i] == '-')
+  while (str && (str[*i] == '+' || str[*i] == '-'))
     {
       if (str[*i] == '-')
 	sign = -sign;
@@ -51,7 +51,7 @@ int	my_getnbr(char *str)
   i = 0;
   sign = posneg(str, &i);
   nbr = 0;
-  while (str[i] > 47 && str[i] < 58)
+  while (str && str[i] > 47 && str[i] < 58)
     {
       if (limits(str[i] - 48, sign, &nbr) == 1)
 	return (nbr);
