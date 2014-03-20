@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Tue Mar 18 19:46:13 2014 dong_n
-** Last update Thu Mar 20 02:53:58 2014 
+** Last update Thu Mar 20 22:49:58 2014 
 */
 
 #include <stdlib.h>
@@ -13,24 +13,42 @@
 #include "op.h"
 #include "my.h"
 
-int		add_elem_prev(t_list *elem, t_args *args, int num)
+void		memset_struct(t_list *list)
 {
   int		i;
+
+  i = -1;
+  while (++i < MAX_ARGS_NUMBER)
+    {
+      list->param[i].type = 0;
+      list->param[i].param = 0;
+    }
+}
+
+int		fill_list(t_list *list, t_args *args, int num)
+{
+  int		i;
+
+  i = -1;
+  list->num = num;
+  list->label = args->label;
+  memset_struct(list);
+  while (++i < op_tab[num - 1].nbr_args)
+    if (get_param_info(list, args, i) == FAILURE)
+      return (FAILURE);
+  get_coding_byte(list);
+  get_coding_size(list);
+  return (SUCCESS);
+}
+
+int		add_elem_prev(t_list *elem, t_args *args, int num)
+{
   t_list	*newelem;
 
-  i = 0;
   if (!(newelem = xmalloc(sizeof(*newelem))))
     return (FAILURE);
-  newelem->num = num;
-  newelem->label = args->label;
-  while (i < op_tab[num - 1].nbr_args)
-    {
-      newelem->param[i].type = get_param_type(args->args[i + 1], num);
-      newelem->param[i].param = get_param_value(args->args[i + 1], newelem->param[i].type);;
-      if (newelem->param[i].param == FAILURE || newelem->param[i].type == FAILURE)
-	return (FAILURE);
-      i++;
-    }
+  if (fill_list(newelem, args, num) == FAILURE)
+    return (FAILURE);
   newelem->prev = elem->prev;
   newelem->next = elem;
   elem->prev->next = newelem;

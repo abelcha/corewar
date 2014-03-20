@@ -63,6 +63,7 @@ typedef struct	s_list
 {
   t_param	param[MAX_ARGS_NUMBER];
   int		coding_byte;
+  int		size;
   int		num;
   char		*label; // -> NULL si il n'y en a pas / label associé
   struct s_list	*next;

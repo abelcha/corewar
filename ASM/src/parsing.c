@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Thu Mar 20 02:55:25 2014 
+** Last update Thu Mar 20 20:14:56 2014 
 */
 
 #include "op.h"
@@ -21,8 +21,7 @@ int		line_parsing(t_args *args, t_list *list)
   if (ins_num == UNKNOWN)
     return (FAILURE);
   if (add_elem_prev(list, args, ins_num) == FAILURE)
-    return (FAILURE); 
-  get_coding_byte(list->prev);
+    return (FAILURE);
   return (SUCCESS);
 }
 

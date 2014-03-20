@@ -5,10 +5,11 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Thu Mar 20 01:51:08 2014 
-** Last update Thu Mar 20 03:07:30 2014 
+** Last update Thu Mar 20 22:41:15 2014 
 */
 #include "corewar.h"
 #include "op.h"
+
 # define OP_LIVE (1)
 # define OP_ZJMP (9)
 # define OP_STI (11)
@@ -16,7 +17,7 @@
 # define OP_LFORK (15)
 
 
-void		get_coding_byte(t_list *list)
+int		get_coding_byte(t_list *list)
 {
   int		i;
   char		type;
@@ -40,5 +41,6 @@ void		get_coding_byte(t_list *list)
 	}
     }
   else
-    list->coding_byte = -1;
+    list->coding_byte = 0;
+  return (SUCCESS);
 }
