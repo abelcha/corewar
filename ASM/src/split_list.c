@@ -5,18 +5,44 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 19:08:43 2014 
-** Last update Wed Mar 19 01:23:12 2014 
+** Last update Thu Mar 20 01:20:18 2014 
 */
 
 #include "op.h"
 #include "corewar.h"
 #include <string.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "x_error.h"
 
-int	cut_label(char *line, t_args *args/* char **label */)
+extern int extended;
+
+int	check_chars(char *label, char c)
 {
   int	i;
+  i = -1;
+  while (label[++i])
+    if (label[i] == c)
+      return (TRUE);
+  return (FALSE);
+}
+
+int	valid_char(char c)
+{
+  if (check_chars(VALID_CHAR, c) == FALSE)
+    if (check_chars(VALID_CHAR, c) == FALSE)
+      if (check_chars(EXT_CHAR, c) == TRUE || extended == TRUE)
+	{
+	  my_fprintf(STDERR_FILENO, BAD_CHAR, c);
+	    return (FALSE);
+	}
+  return (TRUE);
+}
+
+int		cut_label(char *line, t_args *args)
+{
+  int		i;
 
   i = -1;
   while (line[++i])
@@ -59,11 +85,13 @@ int		split_list(char *line, t_args *args)
   if (!line)
     return (FAILURE);
   args->label = NULL;
-  x = cut_label(line, args/* ->label) */);
+  x = cut_label(line, args);
   i = x;
   args->args = calloc(count_sep(line), sizeof(char *));
   while (line[++i])
     {
+      //      if (valid_char(line[i]) == FALSE)
+      //	return (FAILURE);
       if (line[i] == ' ' || line[i] == ',')
 	{
 	  line[i] = '\0';

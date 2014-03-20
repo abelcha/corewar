@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Tue Mar 18 19:46:13 2014 dong_n
-** Last update Wed Mar 19 04:01:09 2014 
+** Last update Thu Mar 20 02:53:58 2014 
 */
 
 #include <stdlib.h>
@@ -26,7 +26,7 @@ int		add_elem_prev(t_list *elem, t_args *args, int num)
   while (i < op_tab[num - 1].nbr_args)
     {
       newelem->param[i].type = get_param_type(args->args[i + 1], num);
-      newelem->param[i].param = get_param_value(args->args[i + 1], newelem->param[i].type);
+      newelem->param[i].param = get_param_value(args->args[i + 1], newelem->param[i].type);;
       if (newelem->param[i].param == FAILURE || newelem->param[i].type == FAILURE)
 	return (FAILURE);
       i++;

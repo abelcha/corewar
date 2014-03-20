@@ -18,21 +18,22 @@ SRC	=	src/epur.c		\
 		src/op.c		\
 		src/my_list.c		\
 		src/parsing.c		\
+		src/oct.c		\
 		src/show_list.c		\
+		src/x_open.c		\
 		src/instruction_tab.c	\
 		src/split_list.c
 
-LIB	=	../lib/my_putchar.c	\
-		../lib/my_putstr.c	\
-		../lib/my_strlen.c	\
-		../lib/my_put_nbr.c	\
+LIB	=	../lib/my_put_nbr.c	\
 		../lib/x_error.c	\
 		../lib/my_getnbr.c	\
 		../lib/my_strcmp.c	\
 		../lib/my_strcpy.c	\
-		../lib/gnl.c	\
-		../lib/xmalloc.c
-
+		../lib/gnl.c		\
+		../lib/xmalloc.c	\
+		../my_printf/printf1.c	\
+		../my_printf/printf2.c
+	
 OBJ	=	$(SRC:.c=.o) $(LIB:.c=.o)
 
 CFLAGS	=	-I../includes/	#-W -Wall -Wextra -pedantic

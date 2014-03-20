@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 03:46:23 2014 
-** Last update Wed Mar 19 04:23:49 2014 
+** Last update Thu Mar 20 02:55:57 2014 
 */
 
 #include "op.h"
@@ -28,16 +28,17 @@ void		show_list(t_list *list)
 	printf("		label =%s %s\n%s", BLUE,tmp->label, ENDOF);
       else
 	printf("	\n");
+      printf("Coding Byte = %s%x%s\n", BLUE , tmp->coding_byte, ENDOF );
       i = 0;
       while (i < op_tab[tmp->num - 1].nbr_args)
 	{
 	  printf("	");
 	  if (tmp->param[i].type == T_REG)
-	    printf("Type = Register (%sr%s)",GREEN ,ENDOF );
+	    printf("Type = Register (%s01%s)",GREEN ,ENDOF );
 	  else if (tmp->param[i].type == T_IND)
-	    printf("Type = Indirect (%s1-9%s), ", GREEN ,ENDOF );
+	    printf("Type = Indirect (%s11%s), ", GREEN ,ENDOF );
 	  else if (tmp->param[i].type == T_DIR)
-	    printf("Type = Direct(%s%%%s), ", GREEN ,ENDOF );
+	    printf("Type = Direct(%s10%s), ", GREEN ,ENDOF );
 	  else
 	    printf("Type = Label(%s:%s), ", GREEN ,ENDOF );
 	  printf("	");

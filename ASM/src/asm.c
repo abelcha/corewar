@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Wed Mar 19 05:53:04 2014 
+** Last update Wed Mar 19 17:47:43 2014 
 */
 
 #include <fcntl.h>
@@ -16,13 +16,9 @@
 #include "my.h"
 #include "corewar.h"
 #include "x_error.h"
+
 char	*gnl(int);
 int	extended = FALSE;
-typedef struct s_info
-{
-  char	filename[128];
-  char	comment[2048];
-} t_info;
 
 int		is_legit(char *str)
 {
@@ -31,7 +27,7 @@ int		is_legit(char *str)
   i = -1;
   while (str[++i])
     {
-      while (!(str[i] > 32 && str[i] < 127) && str[i] != '\0')
+      while (!(str[i] > 32 && str[i] < 127) && str[i])
 	i++;
       if (str[i] == '#' || str[i] == ';' || str[i] == '\0')
 	return (FALSE);
@@ -105,19 +101,6 @@ int		first_points(char *str, t_info *info)
   return (FALSE);
 }
 
-int		open_file(char *str)
-{
-  int	fd;
-  int	len;
-
-  len = my_strlen(str) - 1;
-  if (len < 3 || str[len] != 's' || str[len - 1] != '.')
-    return (X_ERROR(str, FILE_EXT));
-  fd = open(str, O_RDONLY);
-  if (fd == -1)
-    return (X_ERROR(str, NO_FILE));
-  return (fd);
-}
 char		*ls_joint(char *str1, char *str2)
 {
   char		*tmp;
