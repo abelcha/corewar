@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 03:46:23 2014 
-** Last update Thu Mar 20 22:50:36 2014 
+** Last update Fri Mar 21 07:21:23 2014 chalie_a
 */
 
 #include "op.h"
@@ -35,16 +35,16 @@ void		show_list(t_list *list)
       while (i < op_tab[tmp->num - 1].nbr_args)
 	{
 	  printf("	");
-	  if (tmp->param[i].type == T_REG)
-	    printf("Type = Register (%s01%s)",GREEN ,ENDOF );
-	  else if (tmp->param[i].type == T_IND)
-	    printf("Type = Indirect (%s11%s), ", GREEN ,ENDOF );
-	  else if (tmp->param[i].type == T_DIR)
-	    printf("Type = Direct(%s10%s), ", GREEN ,ENDOF );
-	  else
-	    printf("Type = Label(%s:%s), ", GREEN ,ENDOF );
+	    if (tmp->param[i].type == T_REG)
+	      printf("Type = Register (%s01%s)",GREEN ,ENDOF );
+	    else if (tmp->param[i].type == T_IND)
+	      printf("Type = Indirect (%s11%s), ", GREEN ,ENDOF );
+	    else if (tmp->param[i].type == T_DIR)
+	      printf("Type = Direct(%s10%s), ", GREEN ,ENDOF );
+	    else
+	      printf("Type = Label(%s:%s), ", GREEN ,ENDOF );
 	  printf("	");
-	  printf("value = %s%d\n%s", MAGENTA,tmp->param[i].param, ENDOF);
+	  printf("value = %s%x\n%s", MAGENTA,tmp->param[i].param, ENDOF);
 	  i++;
 	}
       printf("\n\n");

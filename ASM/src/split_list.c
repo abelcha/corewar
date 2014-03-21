@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 19:08:43 2014 
-** Last update Thu Mar 20 01:20:18 2014 
+** Last update Fri Mar 21 04:59:33 2014 chalie_a
 */
 
 #include "op.h"
@@ -79,7 +79,6 @@ int		split_list(char *line, t_args *args)
   int		i;
   int		j;
   char		x;
-  char		**stock;
 
   j = -1;
   if (!line)

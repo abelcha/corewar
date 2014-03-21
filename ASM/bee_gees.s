@@ -16,7 +16,6 @@ live2:
 	fork	%:forks
 	ld	%0, r4			;carry = 1
 	zjmp	%:forks
-
 	#EndWhile
 endwhile:
 	ld	%0, r4			;carry = 1

@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Thu Mar 20 20:14:56 2014 
+** Last update Fri Mar 21 05:53:07 2014 chalie_a
 */
 
 #include "op.h"
@@ -44,6 +44,8 @@ int		asm_parsing(t_list *list, char **stock)
       if (line_parsing(args, list) == FAILURE)
 	return (FAILURE);
     }
+  remplace_label(list);
+  get_every_label_value(list);
   show_list(list);
   return (SUCCESS);
 }

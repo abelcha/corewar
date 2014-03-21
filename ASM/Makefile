@@ -21,6 +21,7 @@ SRC	=	src/epur.c		\
 		src/oct.c		\
 		src/show_list.c		\
 		src/x_open.c		\
+		src/find_label.c	\
 		src/instruction_tab.c	\
 		src/split_list.c
 

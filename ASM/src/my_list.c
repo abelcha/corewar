@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Tue Mar 18 19:46:13 2014 dong_n
-** Last update Thu Mar 20 22:49:58 2014 
+** Last update Fri Mar 21 05:38:21 2014 chalie_a
 */
 
 #include <stdlib.h>
@@ -22,6 +22,7 @@ void		memset_struct(t_list *list)
     {
       list->param[i].type = 0;
       list->param[i].param = 0;
+      list->param[i].l_flag = NULL;
     }
 }
 

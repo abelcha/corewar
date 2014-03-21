@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Thu Mar 20 20:18:38 2014 
+** Last update Fri Mar 21 04:53:28 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -38,6 +38,11 @@ typedef struct s_info
 } t_info;
 
 
+int	get_type(char *, int);
+int	get_value(char *, int);
+int	remplace_label(t_list *);
+int	get_coding_size(t_list *);
+int	get_param_info(t_list *, t_args *, int);
 int	get_coding_byte(t_list *list);
 t_list	*init_list(void);
 void	show_list(t_list *);

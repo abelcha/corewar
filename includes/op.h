@@ -57,6 +57,7 @@ typedef struct	s_param
 {
   int		type;
   int		param;
+  char		*l_flag;
 }		t_param;
 
 typedef struct	s_list
