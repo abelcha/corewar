@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 03:46:23 2014 
-** Last update Fri Mar 21 04:49:36 2014 chalie_a
+** Last update Sat Mar 22 00:21:18 2014 chalie_a
 */
 
 #include "op.h"
@@ -21,7 +21,6 @@ int		find_label(t_list *list, char *label, int *value)
 
   i = 0;
   tmp = list->next;
-  printf("--> %d\n", list->coding_byte);
   while (tmp != list)
     {
       if (tmp->label)

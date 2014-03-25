@@ -5,16 +5,10 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Thu Mar 20 01:51:08 2014 
-** Last update Thu Mar 20 22:41:15 2014 
+** Last update Fri Mar 21 22:40:21 2014 chalie_a
 */
 #include "corewar.h"
 #include "op.h"
-
-# define OP_LIVE (1)
-# define OP_ZJMP (9)
-# define OP_STI (11)
-# define OP_FORK (12)
-# define OP_LFORK (15)
 
 
 int		get_coding_byte(t_list *list)

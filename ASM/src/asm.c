@@ -5,12 +5,13 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Wed Mar 19 17:47:43 2014 
+** Last update Tue Mar 25 08:43:16 2014 chalie_a
 */
 
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include "op.h"
 #include "my.h"
@@ -66,7 +67,7 @@ int		get_info(char *stock, t_info *info)
 	else if (!strncmp(&(stock[j + 1]), "extended", 6))
 	  extended = TRUE;
 	else
-	  printf("Warning : Unknown extension '%s'\n", stock);
+	  my_fprintf(STDERR_FILENO, "Warning : Unknown extension '%s'\n", stock);
 	break;
       }
   return (TRUE);
@@ -123,8 +124,9 @@ int		main(int ac, char **av)
   int		i;
   t_info	*info;
   t_list        *list;
+  int		flag;
   i = -1;
-
+  flag = 0;
   info = malloc(sizeof(t_info));
   if ((fd = open_file(av[1])) == FAILURE)
     return (FAILURE);
@@ -136,9 +138,6 @@ int		main(int ac, char **av)
 	i--;
       }
     else if (only_label(stock[i]) == TRUE)
-      stock[i] = ls_joint(stock[i], gnl(fd));
-  printf("\n\tFilename = '%s'\n", info->filename);
-  printf("\tComment = '%s'\n", info->comment);
-  printf(extended == TRUE ? "\tExtended = TRUE\n" : "\tExtended = FALSE\n");
-  asm_parsing(list, stock);
+	stock[i] = ls_joint(stock[i], gnl(fd));
+  asm_parsing(info, list, stock);
 }

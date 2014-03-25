@@ -31,7 +31,7 @@
 #define REG_NUMBER      16              /* r1 <--> rx */
 
 /*
- ** 
+ **
  */
 
 typedef char    args_type_t;
@@ -56,6 +56,7 @@ typedef struct	s_op
 typedef struct	s_param
 {
   int		type;
+  int		w_size;
   int		param;
   char		*l_flag;
 }		t_param;
@@ -81,9 +82,9 @@ typedef struct	s_args
  ** size
  */
 
+#define REG_SIZE        1               /* en octet */
 #define IND_SIZE        2               /* en octet */
-#define REG_SIZE        4               /* en octet */
-#define DIR_SIZE        REG_SIZE        /* en octet */
+#define DIR_SIZE        4	        /* en octet */
 
 /*
  ** op_tab
@@ -96,6 +97,7 @@ extern  t_op    op_tab[];
 /*
  ** header
  */
+
 #define PROG_NAME_LENGTH        128
 #define COMMENT_LENGTH          2048
 

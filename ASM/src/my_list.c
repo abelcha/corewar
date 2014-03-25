@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Tue Mar 18 19:46:13 2014 dong_n
-** Last update Fri Mar 21 05:38:21 2014 chalie_a
+** Last update Tue Mar 25 07:12:26 2014 chalie_a
 */
 
 #include <stdlib.h>
@@ -20,6 +20,7 @@ void		memset_struct(t_list *list)
   i = -1;
   while (++i < MAX_ARGS_NUMBER)
     {
+      list->param[i].w_size = 0;
       list->param[i].type = 0;
       list->param[i].param = 0;
       list->param[i].l_flag = NULL;
@@ -36,9 +37,11 @@ int		fill_list(t_list *list, t_args *args, int num)
   memset_struct(list);
   while (++i < op_tab[num - 1].nbr_args)
     if (get_param_info(list, args, i) == FAILURE)
-      return (FAILURE);
-  get_coding_byte(list);
-  get_coding_size(list);
+      return (FAILURE); 
+ get_coding_byte(list);
+  get_coding_size(list, &(list->param[i].w_size));
+  if (param_type_verif(list->param, list) == FAILURE)
+    return (FAILURE);
   return (SUCCESS);
 }
 

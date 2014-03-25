@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Fri Mar 21 05:53:07 2014 chalie_a
+** Last update Tue Mar 25 08:28:25 2014 chalie_a
 */
 
 #include "op.h"
@@ -22,22 +22,25 @@ int		line_parsing(t_args *args, t_list *list)
     return (FAILURE);
   if (add_elem_prev(list, args, ins_num) == FAILURE)
     return (FAILURE);
-  return (SUCCESS);
+ return (SUCCESS);
 }
 
-int		asm_parsing(t_list *list, char **stock)
+int		asm_parsing(t_info *info, t_list *list, char **stock)
 {
   int		i;
   int		cmp;
   t_args	*args;
+  t_list	*tmp;
 
   i = -1;
+  tmp = list;
   args = malloc(sizeof(t_args));
   list = init_list();
   if (!list || !args)
     return (ERROR(MALLOC_FAIL));
   while (stock[++i])
     {
+      line = i;
       stock[i] = epur_str(stock[i]);
       if (split_list(stock[i], args) == FAILURE)
 	return (FAILURE);
@@ -47,5 +50,6 @@ int		asm_parsing(t_list *list, char **stock)
   remplace_label(list);
   get_every_label_value(list);
   show_list(list);
+  write_in_file(list, info);
   return (SUCCESS);
 }

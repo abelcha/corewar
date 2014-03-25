@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 03:46:23 2014 
-** Last update Fri Mar 21 07:21:23 2014 chalie_a
+** Last update Sat Mar 22 05:06:15 2014 chalie_a
 */
 
 #include "op.h"
@@ -44,7 +44,7 @@ void		show_list(t_list *list)
 	    else
 	      printf("Type = Label(%s:%s), ", GREEN ,ENDOF );
 	  printf("	");
-	  printf("value = %s%x\n%s", MAGENTA,tmp->param[i].param, ENDOF);
+	  printf("value = %s%d == %x\n%s", MAGENTA,tmp->param[i].param,tmp->param[i].param, ENDOF);
 	  i++;
 	}
       printf("\n\n");

@@ -1,29 +1,38 @@
 /*
-** my_strcmp.c for my_strcmp in /home/dong_n/rendu/Piscine-C-Jour_06/ex_05
+** strings.c for minish in /home/chalie_a/rendu/PSU_2013_minishell1
 ** 
-** Made by david$
-** Login   <dong_n@epitech.net>
+** Made by chalie_a
+** Login   <chalie_a@epitech.eu>
 ** 
-** Started on  Tue Oct  8 15:58:30 2013 david$
-** Last update Sun Dec  1 18:13:52 2013 david$
+** Started on  Wed Jan  1 03:15:53 2014 chalie_a
+** Last update Sat Mar 22 05:33:19 2014 chalie_a
 */
+
+#include "my.h"
 
 int	my_strcmp(char *s1, char *s2)
 {
-  while (*s1 != '\0' && *s2 != '\0')
+  int	i;
+  int	error;
+  int	nbs1;
+  int	nbs2;
+
+  nbs1 = 0;
+  nbs2 = 0;
+  error = 0;
+  i = 0;
+  nbs1 = my_strlen(s1);
+  nbs2 = my_strlen(s2);
+  while (s1 && s2 && s1[i] == s2[i] && (i != nbs1 || i !=nbs2))
     {
-      if (*s1 == *s2)
-	{
-	  s1 = s1 + 1;
-	  s2 = s2 + 1;
-	}
-      else
-	return (*s1 - *s2);
+      i = i + 1;
+      if (nbs1 - nbs2 == 0 && i == nbs1)
+        return (0);
     }
-  if (*s1 != '\0' && *s2 == '\0')
-    return (1);
-  else if (*s1 == '\0' && *s2 != '\0')
-    return (-1);
-  else
-    return (0);
+  if (s1 && s2 && s1[i] != s2[i])
+    {
+      error = s1[i] - s2[i];
+      return (error);
+    }
+  return (0);
 }

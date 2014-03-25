@@ -17,11 +17,13 @@ SRC	=	src/epur.c		\
 		src/get_params.c	\
 		src/op.c		\
 		src/my_list.c		\
+		src/write.c		\
 		src/parsing.c		\
 		src/oct.c		\
 		src/show_list.c		\
 		src/x_open.c		\
 		src/find_label.c	\
+		src/verif.c		\
 		src/instruction_tab.c	\
 		src/split_list.c
 

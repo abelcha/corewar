@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 19:08:43 2014 
-** Last update Fri Mar 21 04:59:33 2014 chalie_a
+** Last update Sat Mar 22 06:13:27 2014 chalie_a
 */
 
 #include "op.h"
@@ -86,11 +86,11 @@ int		split_list(char *line, t_args *args)
   args->label = NULL;
   x = cut_label(line, args);
   i = x;
-  args->args = calloc(count_sep(line), sizeof(char *));
+  if (line[strlen(line)] == ':')
+    return (FAILURE);
+  args->args = calloc(count_sep(line) + 1, sizeof(char *));
   while (line[++i])
     {
-      //      if (valid_char(line[i]) == FALSE)
-      //	return (FAILURE);
       if (line[i] == ' ' || line[i] == ',')
 	{
 	  line[i] = '\0';
