@@ -5,14 +5,15 @@
 ** Login   <chalie_a@epitech.eu>
 ** 
 ** Started on  Sun Mar  9 22:55:09 2014 chalie_a
-** Last update Wed Mar 19 17:48:54 2014 
+** Last update Fri Mar 28 00:00:23 2014 chalie_a
 */
 
-#include <string.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "op.h"
+#include "strings.h"
+#include "my.h"
+#include "corewar.h"
 #include "get_next_line.h"
 
 int             x_free(void *ptr)
@@ -36,7 +37,7 @@ static char	*my_cat(char *s1, char *s2, const int flag)
     return (s2);
   if (!s2)
     return (s1);
-  len = strlen(s1) +  strlen(s2);
+  len = my_strlen(s1) +  my_strlen(s2);
   if ((new = calloc((len + 1), sizeof(char))) == NULL)
     return (NULL);
   while (s1[++i])
@@ -79,13 +80,13 @@ static int	get_buffer(const int fd, char **str, int cr)
     }
   if ((cr = my_strchr(&buffer[++pos], CARRIAGE_RET)) == EOF)
     {
-      *str = strdup(&buffer[pos]);
+      *str = my_strdup(&buffer[pos]);
       pos = -1;
       return (RUNNING);
     }
   else
     {
-      *str = strdup(&buffer[pos]);
+      *str = my_strdup(&buffer[pos]);
       (*str)[cr] = '\0';
       pos = pos + cr;
       return (cr == nb - 1 && (pos = -1) ? x_free(buffer) : END_OF_LINE);
@@ -104,7 +105,7 @@ char		*gnl(int fd)
   str = NULL;
   while ((status = get_buffer(fd, &tmp, cr)) != END_OF_FILE)
     {
-      str = my_cat(str, tmp, 1);
+      str = my_cat(str, tmp, 3);
       if (status == END_OF_LINE)
 	return (str);
     }

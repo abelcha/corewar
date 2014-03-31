@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Tue Mar 25 07:10:53 2014 chalie_a
+** Last update Sun Mar 30 19:02:58 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -51,7 +51,7 @@ int	line;
 #include <stdlib.h>
 #include <stdio.h>
 # include "op.h"
-
+#include "my.h"
 
 typedef struct s_info
 {
@@ -60,6 +60,11 @@ typedef struct s_info
 } t_info;
 
 
+char	**to_tab(char *, int, char);
+int	my_strcpy(char *, char *, int);
+void	double_free(char **);
+char	*my_strdup(char *);
+int	x_free(void *);
 int	get_real_size(int, int);
 int	param_type_verif(t_param *, t_list *);
 int	get_every_label_value(t_list *);

@@ -5,41 +5,28 @@
 ## Login   <dong_n@epitech.net>
 ## 
 ## Started on  Mon Mar 17 18:59:53 2014 dong_n
-## Last update Mon Mar 17 23:56:07 2014 
+## Last update Fri Mar 28 12:21:10 2014 chalie_a
 ##
 
-CC	=	clang -O3 -g3
+CC	=	clang -g3
 
-NAME	=	asm
+NAME	=	vm
 
-SRC	=	src/epur.c		\
-		src/asm.c		\
-		src/get_params.c	\
-		src/op.c		\
-		src/my_list.c		\
-		src/write.c		\
-		src/parsing.c		\
-		src/oct.c		\
-		src/show_list.c		\
-		src/x_open.c		\
-		src/double_free.c	\
-		src/find_label.c	\
-		src/verif.c		\
-		src/instruction_tab.c	\
-		src/split_list.c
+SRC	=	src/main.c
 
 LIB	=	../lib/my_put_nbr.c	\
 		../lib/x_error.c	\
 		../lib/my_getnbr.c	\
 		../lib/my_strcmp.c	\
-		../lib/convert_indian.c	\
 		../lib/my_strdup.c	\
 		../lib/my_strcpy.c	\
 		../lib/gnl.c		\
+		../lib/to_tab.c		\
+		../lib/convert_indian.c	\
 		../lib/xmalloc.c	\
 		../my_printf/printf1.c	\
 		../my_printf/printf2.c
-	
+
 OBJ	=	$(SRC:.c=.o) $(LIB:.c=.o)
 
 CFLAGS	=	-I../includes/	#-W -Wall -Wextra -pedantic

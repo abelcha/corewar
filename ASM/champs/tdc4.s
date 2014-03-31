@@ -4,7 +4,7 @@
 
 
 debut:	
-	st	r1, :li1+1
+	st	r1, :li1 + 1
 	st	r1, :li2+1
 	ld	%100, r4
 	ld	%4, r6

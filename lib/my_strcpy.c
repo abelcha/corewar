@@ -5,10 +5,12 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Mon Oct  7 10:27:58 2013 david$
-** Last update Wed Oct  9 12:00:55 2013 david$
+** Last update Fri Mar 28 07:08:14 2014 chalie_a
 */
 
-char	 *my_strcpy(char *dest, char *src)
+#include "stdlib.h"
+
+char	 *my_strcpy(char *dest, char *src, int flag)
 {
   int	i;
 
@@ -19,5 +21,7 @@ char	 *my_strcpy(char *dest, char *src)
       i = i + 1;
     }
   dest[i] = '\0';
+  if (flag == 1)
+    free(src);
   return (dest);
 }

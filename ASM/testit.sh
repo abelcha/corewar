@@ -1,5 +1,6 @@
 #!/bin/sh
 
+rm original result err;
 ./asm "$1.s" 2>> err;
 ./AsmX "$1.s" 2>> err;
 od -x result.cor >> result;
@@ -18,8 +19,6 @@ else
     colordiff -s original result;
 fi
 
-rm original result err;
-
 echo "
 
 
@@ -35,3 +34,4 @@ echo "
 
 
 "
+rm err

@@ -5,44 +5,13 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sat Mar 22 07:17:03 2014 chalie_a
-** Last update Tue Mar 25 06:52:19 2014 chalie_a
+** Last update Fri Mar 28 12:52:51 2014 chalie_a
 */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include "op.h"
 #include "corewar.h"
-
-void		sb(void *source, int size)
-{
-  typedef unsigned char TwoBytes[2];
-  typedef unsigned char FourBytes[4];
-  typedef unsigned char EightBytes[8];
-  FourBytes	*src4;
-  unsigned char	temp;
-  TwoBytes	*src2;
-
-  if(size == 2)
-    {
-      src2 = (TwoBytes *)source;
-      temp = (*src2)[0];
-      (*src2)[0] = (*src2)[1];
-      (*src2)[1] = temp;
-      return;
-    }
-  if(size == 4)
-    {
-      src4 = (FourBytes *)source;
-      temp = (*src4)[0];
-      (*src4)[0] = (*src4)[3];
-      (*src4)[3] = temp;
-      temp = (*src4)[1];
-      (*src4)[1] = (*src4)[2];
-      (*src4)[2] = temp;
-      return ;
-    }
-  return ;
-}
 
 int		get_prog_size(t_list *list)
 {
@@ -77,10 +46,13 @@ int		write_data(t_list *list, int fd)
       while (++j < 4)
 	{
 	  conv = tmp->param[j].param;
-	  sb(&conv, get_real_size(tmp->param[j].type, tmp->num));
+	  convert_indian(&conv, get_real_size(tmp->param[j].type, tmp->num));
 	  write(fd, &(conv), get_real_size(tmp->param[j].type, tmp->num));
+	  x_free(tmp->param[j].l_flag);
 	}
+      x_free(tmp->label);
       tmp = tmp->next;
+      x_free(tmp->prev);
     }
   return (SUCCESS);
 }
@@ -107,5 +79,7 @@ int		write_in_file(t_list *list, t_info *info)
   sb(&header->magic, sizeof(int));
   write(fd, header, 2192);
   write_data(list, fd);
+  x_free(info);
+  x_free(header);
   return (SUCCESS);
 }

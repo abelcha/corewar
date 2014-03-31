@@ -1,0 +1,21 @@
+/*
+** double_free.c for lol in /home/tovazm/rendu/corewar/ASM/src
+** 
+** Made by chalie_a
+** Login   <abel@chalier.me>
+** 
+** Started on  Thu Mar 27 23:27:10 2014 chalie_a
+** Last update Thu Mar 27 23:59:07 2014 chalie_a
+*/
+
+#include "corewar.h"
+
+void	double_free(char **stock)
+{
+  int	i;
+
+  i = -1;
+  while (stock[++i])
+    free(stock[i]);
+  free(stock);
+}

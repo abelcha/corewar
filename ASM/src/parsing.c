@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 17 17:30:55 2014 
-** Last update Tue Mar 25 08:28:25 2014 chalie_a
+** Last update Fri Mar 28 07:27:30 2014 chalie_a
 */
 
 #include "op.h"
@@ -34,7 +34,7 @@ int		asm_parsing(t_info *info, t_list *list, char **stock)
 
   i = -1;
   tmp = list;
-  args = malloc(sizeof(t_args));
+  args = calloc(1, sizeof(t_args));
   list = init_list();
   if (!list || !args)
     return (ERROR(MALLOC_FAIL));
@@ -47,6 +47,7 @@ int		asm_parsing(t_info *info, t_list *list, char **stock)
       if (line_parsing(args, list) == FAILURE)
 	return (FAILURE);
     }
+  double_free(stock);
   remplace_label(list);
   get_every_label_value(list);
   show_list(list);

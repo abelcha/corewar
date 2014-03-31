@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Tue Mar 25 08:43:16 2014 chalie_a
+** Last update Fri Mar 28 12:00:40 2014 chalie_a
 */
 
 #include <fcntl.h>
@@ -19,6 +19,7 @@
 #include "x_error.h"
 
 char	*gnl(int);
+
 int	extended = FALSE;
 
 int		is_legit(char *str)
@@ -61,9 +62,9 @@ int		get_info(char *stock, t_info *info)
     if (stock[j] == '.')
       {
 	if (!strncmp(&(stock[j + 1]), "name", 4))
-	  strcpy(info->filename, cut_double_quotes(&(stock[j + 1])));
+	  my_strcpy(info->filename, cut_double_quotes(&(stock[j + 1])), 1);
 	else if (!strncmp(&(stock[j + 1]), "comment", 6))
-	  strcpy(info->comment, cut_double_quotes(&stock[j + 1]));
+	  my_strcpy(info->comment, cut_double_quotes(&(stock[j + 1])), 1);
 	else if (!strncmp(&(stock[j + 1]), "extended", 6))
 	  extended = TRUE;
 	else
@@ -76,7 +77,7 @@ int		get_info(char *stock, t_info *info)
 int		only_label(char *str)
 {
   int		i;
-  
+
   i = my_strlen(str);
   while (--i > 0)
     {
@@ -123,8 +124,9 @@ int		main(int ac, char **av)
   char		**stock;
   int		i;
   t_info	*info;
-  t_list        *list;
+  t_list	*list;
   int		flag;
+
   i = -1;
   flag = 0;
   info = malloc(sizeof(t_info));
@@ -132,12 +134,15 @@ int		main(int ac, char **av)
     return (FAILURE);
   stock = calloc(4096, sizeof(char *));
   while ((stock[++i] = gnl(fd)))
+  {
     if (is_legit(stock[i]) == FALSE || first_points(stock[i], info) == TRUE)
       {
 	free(stock[i]);
-	i--;
+	  i--;
       }
     else if (only_label(stock[i]) == TRUE)
-	stock[i] = ls_joint(stock[i], gnl(fd));
+      stock[i] = ls_joint(stock[i], gnl(fd));
+  }
+  close(fd);
   asm_parsing(info, list, stock);
 }

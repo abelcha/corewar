@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 02:14:38 2014 
-** Last update Tue Mar 25 08:29:57 2014 chalie_a
+** Last update Fri Mar 28 12:04:04 2014 chalie_a
 */
 
 #include "corewar.h"
@@ -94,8 +94,8 @@ int		get_every_label_value(t_list *list)
 int		get_real_size(int type, int num)
 {
   if (type == T_DIR)
-    if (num == OP_ZJMP || num == OP_LDI || num == OP_STI 
-	|| num == OP_LLDI || num == OP_FORK 
+    if (num == OP_ZJMP || num == OP_LDI || num == OP_STI
+	|| num == OP_LLDI || num == OP_FORK
 	|| num == OP_LFORK || num == OP_AFF)
       return (IND_SIZE);
   if (type == T_REG)
