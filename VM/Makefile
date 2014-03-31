@@ -12,7 +12,8 @@ CC	=	clang -g3
 
 NAME	=	vm
 
-SRC	=	src/main.c
+SRC	=	src/main.c			\
+		src/fill_champs.c	\
 
 LIB	=	../lib/my_put_nbr.c	\
 		../lib/x_error.c	\

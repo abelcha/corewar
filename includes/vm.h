@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Mon Mar 31 03:58:29 2014 chalie_a
+** Last update Mon Mar 31 17:33:51 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -40,7 +40,7 @@ typedef struct		s_hd
 typedef struct          s_champ
 {
 
-  char			*prog;
+  char			*code;
   int			reg[REG_NUMBER];
   int			last_live_call;
   int			carry;
@@ -62,5 +62,6 @@ typedef struct		s_arena
 }			t_arena;
 
 int	is_number(char *);
+int	fill_champs(t_champ *champ);
 
 #endif /* !VM_H_ */
