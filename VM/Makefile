@@ -14,6 +14,9 @@ NAME	=	vm
 
 SRC	=	src/main.c			\
 		src/fill_champs.c	\
+		src/add_champs.c	\
+		src/vm_error.c		\
+		src/fill_arena.c	\
 
 LIB	=	../lib/my_put_nbr.c	\
 		../lib/x_error.c	\
