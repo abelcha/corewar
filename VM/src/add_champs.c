@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  2 00:33:03 2014 chalie_a
+** Last update Wed Apr  2 13:32:16 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -29,10 +29,10 @@ int		is_number(char *str)
   return (TRUE);
 }
 
-int		line_cmp(char *str)
+int			line_cmp(char *str)
 {
-  static char	*tab[5] = {"-dump", "-a", "-n", "-s", "-ctmo"};
-  int		i;
+  static const char	*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
+  int			i;
 
   i = -1;
   while (++i < 5)
@@ -91,7 +91,6 @@ t_champ		*init_champ()
       return (NULL);
     }
   champ->line->filename = NULL;
-  champ->line->dump = -1;
   champ->line->prog_number = 0;
   champ->line->load_a = -1;
   champ->code = NULL;

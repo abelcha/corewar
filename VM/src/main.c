@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  2 00:46:28 2014 chalie_a
+** Last update Wed Apr  2 13:29:59 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -25,19 +25,16 @@ int		shw_list(t_champ *root)
   t_champ	*list;
 
   list = root->next;
+  printf("\n============================\n");
   while (list != root)
     {
       printf("name = %s\n", list->line->filename);
-      printf("dump = %d , load_a = %d, prog_nbr = %d\n",  list->line->dump,
+      printf("load_a = %d, prog_nbr = %d\n",
 	     list->line->load_a, list->line->prog_number);
-      int	i = -1;
-      printf(BLUE);
-      while (++i < list->header->prog_size)
-	printf("%d ", list->code[i]);
-      printf(ENDOF);
       list = list->next;
     }
-  printf("\n");
+  printf("===============================\n");
+  printf("===============================\n");
   return (SUCCESS);
 }
 
@@ -120,6 +117,8 @@ int			main(int ac, char **av)
   arena = init_arena(champ);
   if (arena == NULL)
     return (FAILURE);
+  //START BATTLE
+  shw_list(champ);
   display_arena(arena->arena);
   display_sets(sets);
   return (SUCCESS);

@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Wed Apr  2 00:24:18 2014 chalie_a
+** Last update Wed Apr  2 13:29:27 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -23,16 +23,14 @@ typedef struct		s_settings
 typedef struct		s_cmd
 {
   int			op;
-  int			*args_type[MAX_ARGS_NUMBER];
-  int			*args_value[MAX_ARGS_NUMBER];
+  int			args_type[MAX_ARGS_NUMBER];
+  int			args_value[MAX_ARGS_NUMBER];
 }			t_cmd;
-
 
 typedef struct		s_line
 {
   char			*filename;
   int			mem_size;
-  int			dump;
   int			prog_number;
   int			load_a;
 }			t_line;
@@ -62,7 +60,6 @@ typedef struct          s_champ
 
 typedef struct		s_arena
 {
-  int			dump;
   int			total_size;
   int			nb_champs;
   char			arena[MEM_SIZE + 1];
