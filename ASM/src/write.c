@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sat Mar 22 07:17:03 2014 chalie_a
-** Last update Fri Mar 28 12:52:51 2014 chalie_a
+** Last update Tue Apr  1 21:20:58 2014 chalie_a
 */
 
 #include <fcntl.h>
@@ -69,14 +69,14 @@ int		write_in_file(t_list *list, t_info *info)
   if (fd == -1)
     return (FAILURE);
   header->prog_size = get_prog_size(list);
-  sb(&(header->prog_size), sizeof(int));
+  SWAP(header->prog_size);
   printf("total prog_size = %d\n",  header->prog_size);
   memset(header->prog_name, 0, PROG_NAME_LENGTH);
   memset(header->comment, 0, COMMENT_LENGTH);
   strcpy(header->prog_name, info->filename);
   strcpy(header->comment, info->comment);
   header->magic = 15369203;
-  sb(&header->magic, sizeof(int));
+  SWAP(header->magic);
   write(fd, header, 2192);
   write_data(list, fd);
   x_free(info);

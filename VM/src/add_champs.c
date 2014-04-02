@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Tue Apr  1 12:50:57 2014 chalie_a
+** Last update Wed Apr  2 00:33:03 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -31,26 +31,30 @@ int		is_number(char *str)
 
 int		line_cmp(char *str)
 {
-  static char	*tab[3] = {"-dump", "-a", "-n"};
+  static char	*tab[5] = {"-dump", "-a", "-n", "-s", "-ctmo"};
   int		i;
 
   i = -1;
-  while (++i < 3)
+  while (++i < 5)
     if (!my_strcmp(str, tab[i]))
       return (i);
   return (-1);
 }
 
-int		fill_line(t_champ *champ, int cmp, int value)
+int		fill_line(t_champ *champ, t_settings *sets, int cmp, int value)
 {
   if (value < 0)
     return (option_error(cmp));
   if (cmp == 0)
-    champ->line->dump = value;
+    sets->dump = value;
   else if (cmp == 1)
-    champ->line->load_address = value;
-  else
+    champ->line->load_a = value;
+  else if (cmp == 2)
     champ->line->prog_number = value;
+  else if (cmp == 4)
+    sets->ctmo = value;
+  else
+    sets->mem_size = value;
   return (SUCCESS);
 }
 
@@ -87,17 +91,15 @@ t_champ		*init_champ()
       return (NULL);
     }
   champ->line->filename = NULL;
-  champ->line->dump = 0;
+  champ->line->dump = -1;
   champ->line->prog_number = 0;
-  champ->line->load_address = 0;
+  champ->line->load_a = -1;
   champ->code = NULL;
   champ->last_live_call = 0;
-  champ->carry = 0;
-  champ->pc = 0;
   return (champ);
 }
 
-int		add_champs_in_list(t_champ *champ, char **stock)
+int		add_champs_in_list(t_champ *champ, char **stock, t_settings *sets)
 {
   static int	i = -1;
   int		cmp;
@@ -111,7 +113,7 @@ int		add_champs_in_list(t_champ *champ, char **stock)
 	{
 	  if (is_number(stock[i + 1]) == FALSE)
 	    return (not_a_number(stock[i]));
-	  if (fill_line(new_elem, cmp, my_getnbr(stock[++i])) == FAILURE)
+	  if (fill_line(new_elem, sets, cmp, my_getnbr(stock[++i])) == FAILURE)
 	    return (FAILURE);
 	}
       else

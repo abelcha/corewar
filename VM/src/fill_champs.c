@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 31 17:30:06 2014 chalie_a
-** Last update Mon Mar 31 18:12:29 2014 chalie_a
+** Last update Wed Apr  2 00:47:05 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -51,7 +51,6 @@ int	read_code(t_champ *champ, int fd)
  champ->code = calloc(champ->header->prog_size + 2, sizeof(char));
  nb_read = read(fd, champ->code, champ->header->prog_size + 1);
 
- printf("nb_read = %d, prog_size = %d\n", nb_read, champ->header->prog_size);
  if (nb_read != champ->header->prog_size)
    {
      printf("Error : Invalid program size\n");

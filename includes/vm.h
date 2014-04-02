@@ -5,13 +5,20 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Mon Mar 31 23:01:11 2014 chalie_a
+** Last update Wed Apr  2 00:24:18 2014 chalie_a
 */
 
 #ifndef _VM_H_
 # define _VM_H_
 
 #include "corewar.h"
+
+typedef struct		s_settings
+{
+  int			dump;
+  int			mem_size;
+  int			ctmo;
+}			t_settings;
 
 typedef struct		s_cmd
 {
@@ -24,9 +31,10 @@ typedef struct		s_cmd
 typedef struct		s_line
 {
   char			*filename;
+  int			mem_size;
   int			dump;
   int			prog_number;
-  int			load_address;
+  int			load_a;
 }			t_line;
 
 typedef struct		s_hd
@@ -45,7 +53,6 @@ typedef struct          s_champ
   int			last_live_call;
   int			carry;
   int			pc;
-  int			lol;
   t_hd			*header;
   t_cmd			*cmd;
   t_line		*line;
@@ -55,15 +62,19 @@ typedef struct          s_champ
 
 typedef struct		s_arena
 {
+  int			dump;
+  int			total_size;
+  int			nb_champs;
   char			arena[MEM_SIZE + 1];
   int			cycle_delta;
   int			cycle_to_die;
   int			nbr_live;
 }			t_arena;
 
+t_arena	*init_arena(t_champ *);
 int	option_error(int);
 int	not_a_number(char *);
-int	add_champs_in_list(t_champ *, char **);
+int	add_champs_in_list(t_champ *, char **, t_settings *);
 void	convert_indian(int *, int);
 int	is_number(char *);
 int	fill_champs(t_champ *);

@@ -20,7 +20,7 @@ int		syntax_error()
 {
   my_printf("syntax Error : \n");
   my_printf("Usage : ./corewar [-dumb nbr_cycle] [[-n prog_number]");
-  my_printf("[-a load_address] prog_name]\n");
+  my_printf("[-a load_a] prog_name]\n");
   return (FAILURE);
 }
 

@@ -5,36 +5,23 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:56:09 2014 chalie_a
-** Last update Fri Mar 28 12:56:44 2014 chalie_a
+** Last update Tue Apr  1 21:17:19 2014 chalie_a
 */
 
-void            convert_indian(void *source, int size)
+void		convert_indian(void *input, int n)
 {
-  typedef unsigned char TwoBytes[2];
-  typedef unsigned char FourBytes[4];
-  typedef unsigned char EightBytes[8];
-  FourBytes     *src4;
-  unsigned char temp;
-  TwoBytes      *src2;
+  char		tmp;
+  char		*output;
+  int		low;
+  int		hi;
 
-  if(size == 2)
+  output = input;
+  low = -1;
+  hi = n;
+  while (--hi > ++low)
     {
-      src2 = (TwoBytes *)source;
-      temp = (*src2)[0];
-      (*src2)[0] = (*src2)[1];
-      (*src2)[1] = temp;
-      return;
+      tmp = output[low];
+      output[low] = output[hi];
+      output[hi] = tmp;
     }
-  if(size == 4)
-    {
-      src4 = (FourBytes *)source;
-      temp = (*src4)[0];
-      (*src4)[0] = (*src4)[3];
-      (*src4)[3] = temp;
-      temp = (*src4)[1];
-      (*src4)[1] = (*src4)[2];
-      (*src4)[2] = temp;
-      return ;
-    }
-  return ;
 }

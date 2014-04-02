@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Sun Mar 30 19:02:58 2014 chalie_a
+** Last update Tue Apr  1 21:20:30 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -36,6 +36,8 @@
 # define OP_LLDI	14
 # define OP_LFORK	15
 # define OP_AFF		16
+
+# define		SWAP(nbr) convert_indian(&nbr, sizeof(nbr));
 
 int	line;
 
