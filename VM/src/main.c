@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  2 13:29:59 2014 chalie_a
+** Last update Wed Apr  2 21:15:40 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -15,53 +15,6 @@
 #include "op.h"
 #include "x_colors.h"
 #include "vm.h"
-
-/*
-** TEMPORARY FUNCTIONS
-*/
-
-int		shw_list(t_champ *root)
-{
-  t_champ	*list;
-
-  list = root->next;
-  printf("\n============================\n");
-  while (list != root)
-    {
-      printf("name = %s\n", list->line->filename);
-      printf("load_a = %d, prog_nbr = %d\n",
-	     list->line->load_a, list->line->prog_number);
-      list = list->next;
-    }
-  printf("===============================\n");
-  printf("===============================\n");
-  return (SUCCESS);
-}
-
-void			display_arena(char *str)
-{
-  int			i;
-
-  i = -1;
-  while (++i < MEM_SIZE)
-    if (str[i] == 0 && str[i + 1] == 0 
-	&& str[i + 2] == 0  && str[i + 3] == 0 && str[i + 4] == 0)
-      printf("%s%d%s", BLUE, str[i], ENDOF);
-    else
-      printf("%s%d%s", RED, str[i], ENDOF);
-}
-
-void			display_sets(t_settings *sets)
-{
-  printf("\n=====================================\n");
-  printf("dump = %d, mem_size = %d, ctmo = %d\n", 
-	 sets->dump, sets->mem_size, sets->ctmo);
-  printf("================================\n");
-}
-
-/*
-** ! TEMPORARY FUNCTIONS
-*/
 
 static t_champ		*init_root()
 {
@@ -81,7 +34,7 @@ static t_settings	*init_sets()
   if (!(init = malloc(sizeof(t_settings))) == FAILURE)
     return (NULL);
   init->dump = -1;
-  init->mem_size = -1;
+  init->mem_size = MEM_SIZE;
   init->ctmo = -1;
   return (init);
 }
@@ -112,14 +65,16 @@ int			main(int ac, char **av)
   champ = parse_commandline(&av[1], sets);
   if (!champ)
     return (FAILURE);
+
   //shw_list(champ);
 
-  arena = init_arena(champ);
+  arena = init_arena(champ, sets->mem_size);
   if (arena == NULL)
     return (FAILURE);
-  //START BATTLE
+  start_battle(champ, arena, sets);
   shw_list(champ);
-  display_arena(arena->arena);
+  display_arena(arena->arena, arena->mem_size);
   display_sets(sets);
+  printf("champ nbr = %d\n", arena->nb_champs);
   return (SUCCESS);
 }

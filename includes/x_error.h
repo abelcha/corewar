@@ -5,7 +5,7 @@
 ** Login   <chalie_a@epitech.eu>
 ** 
 ** Started on  Sun Mar  9 22:53:19 2014 chalie_a
-** Last update Wed Mar 19 04:50:21 2014 
+** Last update Wed Apr  2 15:32:10 2014 chalie_a
 */
 
 #ifndef X_ERROR_H_
@@ -19,8 +19,10 @@
 # define INV_PAR	" invalid parameter type.\n"
 # define INV_INST	" is not a valid instruction.\n"
 # define FILE_EXT	" Unknown file extension.\n"
+
 int			put_error(char *);
 void			*put_null_error(char *);
 void			my_puterr(char *);
 int			putxerr(char *, char *);
+
 #endif /* !X_ERROR_H_ */

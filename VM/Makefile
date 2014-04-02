@@ -17,6 +17,8 @@ SRC	=	src/main.c			\
 		src/add_champs.c	\
 		src/vm_error.c		\
 		src/fill_arena.c	\
+		src/start_battle.c	\
+		src/show.c			\
 
 LIB	=	../lib/my_put_nbr.c	\
 		../lib/x_error.c	\
@@ -26,6 +28,7 @@ LIB	=	../lib/my_put_nbr.c	\
 		../lib/my_strcpy.c	\
 		../lib/gnl.c		\
 		../lib/to_tab.c		\
+		../lib/my_putchar.c	\
 		../lib/convert_indian.c	\
 		../lib/xmalloc.c	\
 		../my_printf/printf1.c	\

@@ -4,8 +4,8 @@
 ** Made by 
 ** Login   <abel@chalier.me>
 ** 
-** Started on  Wed Mar 19 19:21:06 2014 
-** Last update Wed Mar 19 20:58:25 2014 
+** Started on  Wed Mar 19 19:21:06 2014 chalie_a
+** Last update Wed Apr  2 14:38:13 2014 chalie_a
 */
 
 #include "my_printf.h"
@@ -33,13 +33,13 @@ ptrft	*my_init_tab(ptrft *init)
   return (init);
 }
 
-void	my_printchar(size_t len, va_list arg)
+void	my_printchar(size_t len, va_list arg, int fdp)
 {
   char	c;
 
   len = 0;
   c = va_arg(arg, int);
-  my_putchar(c);
+  x_putchar(c, fdp);
 }
 
 int			my_fprintf(int fds, const char *format, ...)
@@ -48,7 +48,6 @@ int			my_fprintf(int fds, const char *format, ...)
   va_list       	arg;
   size_t		counters[2] = {0, 0};
 
-  fdp = fds;
   tab = NULL;
   va_start(arg, format);
   tab = my_init_tab(tab);
@@ -59,11 +58,11 @@ int			my_fprintf(int fds, const char *format, ...)
 	  counters[0]++;
 	  if (ISFLAG(format[counters[0]]))
 	    {
-	      tab[(int)format[counters[0]]](counters[1], arg);
+	      tab[(int)format[counters[0]]](counters[1], arg, fds);
 	      counters[0]++;
 	    }
 	}
-      my_putchar(format[counters[0]]);
+      x_putchar(format[counters[0]], fdp);
       counters[0]++;
     }
   va_end(arg);
@@ -76,7 +75,6 @@ int			my_printf(const char *format, ...)
   va_list       	arg;
   size_t		counters[2] = {0, 0};
 
-  fdp = 0;
   tab = NULL;
   va_start(arg, format);
   tab = my_init_tab(tab);
@@ -87,11 +85,11 @@ int			my_printf(const char *format, ...)
 	  counters[0]++;
 	  if (ISFLAG(format[counters[0]]))
 	    {
-	      tab[(int)format[counters[0]]](counters[1], arg);
+	      tab[(int)format[counters[0]]](counters[1], arg, STDOUT_FILENO);
 	      counters[0]++;
 	    }
 	}
-      my_putchar(format[counters[0]]);
+      x_putchar(format[counters[0]], fdp);
       counters[0]++;
     }
   va_end(arg);

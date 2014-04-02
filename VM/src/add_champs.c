@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  2 13:32:16 2014 chalie_a
+** Last update Wed Apr  2 20:02:56 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include "corewar.h"
 #include "op.h"
+#include "x_error.h"
 #include "x_colors.h"
 #include "vm.h"
 
@@ -31,7 +32,7 @@ int		is_number(char *str)
 
 int			line_cmp(char *str)
 {
-  static const char	*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
+  static char		*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
   int			i;
 
   i = -1;
@@ -41,7 +42,7 @@ int			line_cmp(char *str)
   return (-1);
 }
 
-int		fill_line(t_champ *champ, t_settings *sets, int cmp, int value)
+int			fill_line(t_champ *champ, t_settings *sets, int cmp, int value)
 {
   if (value < 0)
     return (option_error(cmp));
@@ -73,7 +74,7 @@ int		add_in_list(t_champ *new_elem, t_champ *champ, char *str)
       champ->prev = new_elem;
       return (54815867);
     }
-  printf("Error : '%s' is not a valid filename\n", str);
+  my_fprintf(STDERR_FILENO, "Error : '%s' is not a valid filename\n", str);
   return (FAILURE);
 }
 
@@ -86,15 +87,11 @@ t_champ		*init_champ()
   champ->line = malloc(sizeof(t_line));
   champ->header = malloc(sizeof(t_hd));
   if (!champ || !champ->cmd || !champ->line)
-    {
-      printf("Error : Malloc Failed\n");
-      return (NULL);
-    }
+    return (ERROR_("Error : Malloc Failed\n"));
   champ->line->filename = NULL;
-  champ->line->prog_number = 0;
   champ->line->load_a = -1;
+  champ->cycle = 1;
   champ->code = NULL;
-  champ->last_live_call = 0;
   return (champ);
 }
 
@@ -103,9 +100,11 @@ int		add_champs_in_list(t_champ *champ, char **stock, t_settings *sets)
   static int	i = -1;
   int		cmp;
   t_champ	*new_elem;
+  static int	cpt = -1;
 
   if (!(new_elem = init_champ()))
     return (FAILURE);
+  new_elem->line->prog_number = ++cpt;
   while (stock[++i])
     {
       if ((cmp = line_cmp(stock[i])) != -1)
