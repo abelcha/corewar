@@ -5,36 +5,24 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Thu Mar 20 01:51:08 2014 
-** Last update Thu Apr  3 00:46:08 2014 chalie_a
+** Last update Thu Apr  3 01:49:55 2014 chalie_a
 */
 
 #include "corewar.h"
-#include "op.h"
 
 int		get_coding_byte(t_list *list)
 {
   int		i;
   char		type;
 
-  if (list->num != OP_LIVE && list->num != OP_ZJMP &&
-      list->num != OP_FORK && list->num != OP_LFORK)
-    {
-      i = -1;
-      list->coding_byte = 0;
-      while (++i < MAX_ARGS_NUMBER)
-	{
-	  if (list->param[i].type == T_REG)
-	    type = 1;
-	  else if (list->param[i].type == T_DIR)
-	    type = 2;
-	  else if (list->param[i].type == T_IND)
-	    type = 3;
-	  else
-	    type = 0;
-	  list->coding_byte |= (type << ((MAX_ARGS_NUMBER - 1 - i) << 1));
-	}
-    }
-  else
-    list->coding_byte = 0;
+  i = -1;
+  list->coding_byte = 0;
+  if (HAVE_CODING_BYTE(list->num) == TRUE)
+    while (++i < MAX_ARGS_NUMBER)
+      {
+	type = (list->param[i].type == T_REG ? 1 : list->param[i].type == T_DIR ? 2 :
+		list->param[i].type == T_IND ? 3 : 0);
+	list->coding_byte |= (type << ((MAX_ARGS_NUMBER - 1 - i) << 1));
+      }
   return (SUCCESS);
 }
