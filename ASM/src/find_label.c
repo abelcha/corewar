@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 03:46:23 2014 
-** Last update Sat Mar 22 00:21:18 2014 chalie_a
+** Last update Thu Apr  3 00:23:39 2014 chalie_a
 */
 
 #include "op.h"
@@ -24,13 +24,11 @@ int		find_label(t_list *list, char *label, int *value)
   while (tmp != list)
     {
       if (tmp->label)
-	{
-	   if (!my_strcmp(tmp->label, &label[1]))
-	      {
-		*value = i;
-		return (SUCCESS);
-	      }
-	}
+	if (!my_strcmp(tmp->label, &label[1]))
+	  {
+	    *value = i;
+	    return (SUCCESS);
+	  }
       tmp = tmp->next;
       ++i;
     }
@@ -47,13 +45,12 @@ int		remplace_label(t_list *list)
   tmp = list->next;
   while (tmp != list)
     {
-      j = -1; 
+      j = -1;
      while (++j < 4)
-	{
-	  if (tmp->param[j].l_flag != NULL) 
-	    if (find_label(list, tmp->param[j].l_flag, &(tmp->param[j].param)) == FAILURE)
-	      return (FAILURE);
-	}
+       if (tmp->param[j].l_flag != NULL)
+	 if (find_label(list, tmp->param[j].l_flag,
+			&(tmp->param[j].param)) == FAILURE)
+	   return (FAILURE);
      tmp = tmp->next;
      ++i;
     }

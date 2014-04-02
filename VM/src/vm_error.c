@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Mon Mar 31 22:19:41 2014 chalie_a
+** Last update Wed Apr  2 21:55:08 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -18,9 +18,9 @@
 
 int		syntax_error()
 {
-  my_printf("syntax Error : \n");
-  my_printf("Usage : ./corewar [-dumb nbr_cycle] [[-n prog_number]");
-  my_printf("[-a load_a] prog_name]\n");
+  my_fprintf(STDERR_FILENO, "syntax Error : \n");
+  my_fprintf(STDERR_FILENO, "Usage : ./corewar [-dumb nbr_cycle] [[-n prog_number]");
+  my_fprintf(STDERR_FILENO, "[-a load_a] prog_name]\n");
   return (FAILURE);
 }
 
@@ -34,6 +34,6 @@ int		option_error(int cmp)
 
 int		not_a_number(char *str)
 {
-  printf("Error : number expected after '%s' statement\n", str);
+  my_fprintf(STDERR_FILENO, "Error : number expected after '%s' statement\n", str);
   return (FAILURE);
 }

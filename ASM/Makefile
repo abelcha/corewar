@@ -20,9 +20,12 @@ SRC	=	src/epur.c		\
 		src/write.c		\
 		src/parsing.c		\
 		src/oct.c		\
+		src/cut_elem.c	\
 		src/show_list.c		\
+		src/label.c			\
 		src/x_open.c		\
 		src/double_free.c	\
+		src/numbers.c		\
 		src/find_label.c	\
 		src/verif.c		\
 		src/instruction_tab.c	\
@@ -31,6 +34,7 @@ SRC	=	src/epur.c		\
 LIB	=	../lib/my_put_nbr.c	\
 		../lib/x_error.c	\
 		../lib/my_getnbr.c	\
+		../lib/my_putchar.c	\
 		../lib/my_strcmp.c	\
 		../lib/convert_indian.c	\
 		../lib/my_strdup.c	\

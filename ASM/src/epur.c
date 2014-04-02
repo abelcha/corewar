@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Mon Mar 17 19:00:51 2014 dong_n
-** Last update Sat Mar 22 05:31:27 2014 chalie_a
+** Last update Thu Apr  3 00:38:46 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -42,30 +42,3 @@ char	*epur_str(char *str)
     ret[k] = '\0';
   return (ret);
 }
-/*
-int	main(int argc, char **argv)
-{
-  int	fd;
-  char	*line;
-  char	*str;
-  char	**tab;
-  int	i;
-
-  (void)argc;
-  (void)argv;
-  fd = open("commented.s", O_RDONLY);
-  tab = malloc(sizeof(*tab) * 500);
-  i = 0;
-  while ((line = get_next_line(fd)))
-    tab[i++] = line;
-  tab[i] = NULL;
-  i = 0;
-  while (tab[i])
-    {
-      str = epur_str(tab[i++]);
-      my_putstr(str);
-      my_putchar('\n');
-    }
-  return (0);
-}
-*/

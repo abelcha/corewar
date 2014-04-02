@@ -5,17 +5,18 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 13:39:47 2014 
-** Last update Wed Mar 19 18:43:02 2014 
+** Last update Thu Apr  3 00:36:38 2014 chalie_a
 */
 
 #include <fcntl.h>
 #include "x_error.h"
 #include "corewar.h"
 #include "my.h"
-int             open_file(char *str)
+
+int		open_file(char *str)
 {
-  int   fd;
-  int   len;
+  int		fd;
+  int		len;
 
   len = my_strlen(str) - 1;
   if (len < 3 || str[len] != 's' || str[len - 1] != '.')

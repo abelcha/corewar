@@ -5,11 +5,11 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Thu Mar 20 01:51:08 2014 
-** Last update Fri Mar 21 22:40:21 2014 chalie_a
+** Last update Thu Apr  3 00:46:08 2014 chalie_a
 */
+
 #include "corewar.h"
 #include "op.h"
-
 
 int		get_coding_byte(t_list *list)
 {

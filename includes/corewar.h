@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Tue Apr  1 21:20:30 2014 chalie_a
+** Last update Thu Apr  3 00:30:28 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -37,7 +37,11 @@
 # define OP_LFORK	15
 # define OP_AFF		16
 
+
+# define		GET_VALUE(s, type) my_atoi(type >= T_IND ? s : &s[1])
 # define		SWAP(nbr) convert_indian(&nbr, sizeof(nbr));
+
+void			convert_indian(void *, int);
 
 int	line;
 
@@ -61,20 +65,20 @@ typedef struct s_info
   char  comment[2048];
 } t_info;
 
-
+int	get_coding_size(t_list *, int *);
+int	get_real_size(int, int);
+int	my_atoi(char *);
+int	first_points(char *, t_info *);
 char	**to_tab(char *, int, char);
 int	my_strcpy(char *, char *, int);
 void	double_free(char **);
 char	*my_strdup(char *);
 int	x_free(void *);
-int	get_real_size(int, int);
 int	param_type_verif(t_param *, t_list *);
 int	get_every_label_value(t_list *);
 int	write_in_file(t_list *, t_info *);
-int	get_type(char *, int);
 int	get_value(char *, int);
 int	remplace_label(t_list *);
-int	get_coding_size(t_list *, int *);
 int	get_param_info(t_list *, t_args *, int);
 int	get_coding_byte(t_list *list);
 t_list	*init_list(void);

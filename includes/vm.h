@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Wed Apr  2 20:19:55 2014 chalie_a
+** Last update Wed Apr  2 22:29:06 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -63,7 +63,7 @@ typedef struct		s_arena
   int			total_size;
   int			nb_champs;
   int			mem_size;
-  char			*arena;
+  unsigned char		*arena;
   int			current_cycle;
   int			cycle_to_die;
   int			nbr_live;

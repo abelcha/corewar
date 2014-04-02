@@ -5,10 +5,12 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Wed Oct  2 17:00:14 2013 david$
-** Last update Wed Jan 15 10:29:10 2014 david$
+** Last update Wed Apr  2 22:59:07 2014 chalie_a
 */
 
 #include "my.h"
+
+
 
 int	my_put_nbr(int nb)
 {
