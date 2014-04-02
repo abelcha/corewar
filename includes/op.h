@@ -43,6 +43,10 @@ typedef char    args_type_t;
                                    dans r1 (4 octecs )) */
 #define T_LAB           8       /* LABEL */
 
+#define REG_SIZE        1               /* en octet */
+#define IND_SIZE        2               /* en octet */
+#define DIR_SIZE        4	        /* en octet */
+
 typedef struct	s_op
 {
   char		*name;
@@ -82,21 +86,17 @@ typedef struct	s_args
  ** size
  */
 
-#define REG_SIZE        1               /* en octet */
-#define IND_SIZE        2               /* en octet */
-#define DIR_SIZE        4	        /* en octet */
-
 /*
- ** op_tab
- */
+** op_tab
+*/
 
 
 extern  t_op    op_tab[];
 
 
 /*
- ** header
- */
+** header
+*/
 
 #define PROG_NAME_LENGTH        128
 #define COMMENT_LENGTH          2048
@@ -113,11 +113,10 @@ struct header_s
 typedef struct header_s header_t;
 
 /*
-** live 
+** live
 */
 
 #define CYCLE_TO_DIE    1536    /* nombre de cycle pour etre d\'eclarer mort */
 #define CYCLE_DELTA     5
 #define NBR_LIVE        40
-
 #endif

@@ -5,27 +5,18 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Thu Apr  3 00:05:17 2014 chalie_a
-** Last update Thu Apr  3 00:39:52 2014 chalie_a
+** Last update Thu Apr  3 01:31:26 2014 chalie_a
 */
 
 #include "corewar.h"
 
+
+
 int	get_real_size(int type, int num)
 {
-  if (type == T_DIR)
-    if (num == OP_ZJMP || num == OP_LDI || num == OP_STI
-        || num == OP_LLDI || num == OP_FORK
-        || num == OP_LFORK || num == OP_AFF)
-      return (IND_SIZE);
-  if (type == T_REG)
-    return (REG_SIZE);
-  if (type == T_DIR)
-    return (DIR_SIZE);
-  if (type == T_IND)
+  if (type == T_IND || type == T_LAB || (type == T_DIR && num >= 9 && num <= 15))
     return (IND_SIZE);
-  if (type == T_LAB)
-    return (IND_SIZE);
-  return (0);
+  return (type == T_REG ? REG_SIZE : type == T_DIR ? DIR_SIZE : 0);
 }
 
 int		get_coding_size(t_list *list, int *w_size)
@@ -46,10 +37,6 @@ int	my_atoi(char *str)
 {
   int	res;
 
-  if (str[0] == ':')
-    return (42);
-  if (str == NULL)
-    return (0);
   if (*str == '-')
     return (-my_atoi(str + 1));
   if (*str == '+')

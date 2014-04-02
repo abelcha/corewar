@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Thu Apr  3 00:30:28 2014 chalie_a
+** Last update Thu Apr  3 01:27:24 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -16,6 +16,7 @@
 #define TRUE	1
 #define FALSE	0
 #define UNKNOWN	-1
+
 /*
 ** TEMPORARY DEFINES
 */
@@ -32,11 +33,10 @@
 # define OP_LDI		10
 # define OP_STI		11
 # define OP_FORK	12
-# define OP_LLD		13
-# define OP_LLDI	14
-# define OP_LFORK	15
-# define OP_AFF		16
-
+# define OP_LLDI	13
+# define OP_LFORK	14
+# define OP_AFF		15
+# define OP_LLD		16
 
 # define		GET_VALUE(s, type) my_atoi(type >= T_IND ? s : &s[1])
 # define		SWAP(nbr) convert_indian(&nbr, sizeof(nbr));
