@@ -1,0 +1,25 @@
+
+INST			|	type		|   size
+
+LIVE				{%}		    4				-->FIXE
+
+{LD / LLD}		{r} {%, #, r1}		    4 + 2			-->FIXE
+					
+ST			{r, %}  {%, r, #}	    {1, 4} + {4, 1, 4}
+
+{ADD / SUB}		{r}{r}{r}		    1 + 1 + 1			-->FIXE
+
+{AND / OR / XOR}	{#, r, %} {#, r, %} {r}	    {2, 1, 4} + {2, 1, 4} + 1	
+
+ZJMP			{%}   	     	   	    2	      	       	    	-->FIXE
+
+{LDI / LLDI}		{#, %, r} {%, r} {%, r}	    {2, 2, 1} + {2, 1} + {2, 1}
+
+STI			{%, r} {%, #, r} {%, r}	    {2, 1} + {2, 2, 1} + {2, 1}
+
+{FORK / LFORK}		{%}    	      	     	    2				-->FIXE
+
+AFF   			{%}			    2				-->FIXE
+
+
+FIXE -> live, ld lld, add, sub, zjmp, fork, lfork, aff

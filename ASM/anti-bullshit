@@ -1,6 +1,5 @@
 LIVE --> prend en param seul un % codé sur 4 octets sinon FAIL
 
-
 LD -->
 1) only 'r'
 2) % -> code sur 4 oct / '#' --> code sur 2 oct / r1 -->FAIL
@@ -43,5 +42,3 @@ LLD - LLDI -- LFORK
 
 AFF-->
 1) % --> 2 / FAIL
-
-=

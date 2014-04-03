@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Wed Apr  2 22:29:06 2014 chalie_a
+** Last update Thu Apr  3 15:25:42 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -63,7 +63,7 @@ typedef struct		s_arena
   int			total_size;
   int			nb_champs;
   int			mem_size;
-  unsigned char		*arena;
+  char			*arena;
   int			current_cycle;
   int			cycle_to_die;
   int			nbr_live;
@@ -73,7 +73,7 @@ t_arena	*init_arena(t_champ *, int);
 int	option_error(int);
 int	not_a_number(char *);
 int	add_champs_in_list(t_champ *, char **, t_settings *);
-void	convert_indian(int *, int);
+void	convert_indian(void *, int);
 int	is_number(char *);
 int	fill_champs(t_champ *);
 int	shw_list(t_champ *root);
