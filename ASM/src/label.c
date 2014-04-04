@@ -1,11 +1,11 @@
 /*
-** get_params.c for coreware in /home/tovazm/rendu/corewar/ASM
+&** get_params.c for coreware in /home/tovazm/rendu/corewar/ASM
 ** 
 ** Made by 
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 02:14:38 2014 
-** Last update Thu Apr  3 00:31:33 2014 chalie_a
+** Last update Thu Apr  3 20:12:22 2014 chalie_a
 */
 
 #include "corewar.h"
@@ -20,7 +20,7 @@ static int	is_num(char *str)
   if (str[i + 1] == '-')
     i++;
   while (str[++i])
-    if (str[i] < '0' || str[i] > '9')
+    if ((str[i] < '0' || str[i] > '9') && !IS_OP(str[i]))
       return (FALSE);
   return (TRUE);
 }

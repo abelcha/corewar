@@ -17,7 +17,6 @@ then
     cat err
 else 
     colordiff -s original result;
-fi
 
 echo "
 
@@ -34,4 +33,5 @@ echo "
 
 
 "
+fi
 rm err

@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:26:38 2014 
-** Last update Thu Apr  3 00:37:55 2014 chalie_a
+** Last update Thu Apr  3 20:27:36 2014 chalie_a
 */
 
 #include <fcntl.h>
@@ -48,11 +48,10 @@ int		get_info(char *stock, t_info *info)
 	  my_strcpy(info->filename, cut_double_quotes(&(stock[j + 1])), 1);
 	else if (!strncmp(&(stock[j + 1]), "comment", 6))
 	  my_strcpy(info->comment, cut_double_quotes(&(stock[j + 1])), 1);
-	else if (!strncmp(&(stock[j + 1]), "extended", 6))
+	else if (!strncmp(&(stock[j + 1]), "extend", 6))
 	  extended = TRUE;
 	else
-	  my_fprintf(STDERR_FILENO, "Warning : Unknown extension '%s'\n", stock);
-	break ;
+	    my_fprintf(STDERR_FILENO, "Warning : Unknown extension '%s'\n", stock);
       }
   return (TRUE);
 }

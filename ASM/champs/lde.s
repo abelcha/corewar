@@ -1,4 +1,5 @@
 .name	"LDE LDE LDE"
+.extend
 	ld %0,r6
 	sti r1,%:suitb,%1
 	sti r1,%:suitb,%6
@@ -153,7 +154,7 @@ sepa:	live %3
 tot:	st r15,488
 	st r4,487
 	st r7,486
-	st r8,485
+	st r8,485+8
 	st r13,484
 	st r14,483
 	zjmp %458

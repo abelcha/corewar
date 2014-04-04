@@ -5,41 +5,50 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 26 00:11:34 2014 chalie_a
-** Last update Wed Mar 26 11:23:54 2014 chalie_a
+** Last update Thu Apr  3 20:34:25 2014 chalie_a
 */
 
-#define IS_OP(c)	(c == '+' || c == '-' || c == '/' || c == '*' || c == '%' ? 1 : 0)
+#include <stdlib.h>
+#include <stdio.h>
+#include "corewar.h"
 
 
-int	doo_op(int r, char o, int n)
+
+int		cut_nbr(char *str, int *i)
 {
-  return (o == '+' ? r + n : o == '-' ? r - n : o == '*' ? r * n : r / n);
+  static char	buffer[128];
+  int		j;
+
+  j = -1;
+  memset(buffer, 0, 128);
+  if (*i == -1)
+    while (str && str[*i] && IS_OP(str[*i]))
+      ++(*i);
+  while (str[*i] && str[++(*i)] && !IS_OP(str[*i]))
+    buffer[++j] = str[(*i)];
+  --(*i);
+  return (atoi(buffer));
 }
 
-int	evalxpr(char *str, int *res)
+int	evalxpr(char *str)
 {
   int	i;
-  int	x;
-  int	op;
-
-  x = 0;
-  i = -1;
-  while (str[++i])
-    {
-      if (str[i] == ':')
-	while (str[i] && IS_OP(str[++i]) == 0);
-      op = str[i];
-      str[i] = '\0';
-      if (IS_OP(str[i]) == 1)
-	res = do_op(res, op, );
-    }
-  return (0);
-}
-
-int	main(int ac, char **av)
-{
+  int	sec;
   int	res;
+  char	op;
 
-  evalxpr(av[1], &res);
-  printf("res  = %d\n", res);
+  i = -1;
+  if (!str)
+    return (0);
+  res = cut_nbr(str, &i);
+  while (str && str[++i])
+    {
+      if (IS_OP(str[i]))
+	{
+	  op = str[i];
+	  sec = cut_nbr(str, &i);
+	  res = DOO_OP(res, op, sec);
+	}
+    }
+  return (res);
 }

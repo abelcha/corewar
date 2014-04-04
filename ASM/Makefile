@@ -24,6 +24,7 @@ SRC	=	src/epur.c		\
 		src/show_list.c		\
 		src/label.c			\
 		src/x_open.c		\
+		src/doo_wop.c		\
 		src/double_free.c	\
 		src/numbers.c		\
 		src/find_label.c	\

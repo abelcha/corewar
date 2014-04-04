@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Thu Apr  3 01:49:26 2014 chalie_a
+** Last update Thu Apr  3 20:07:35 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -38,7 +38,9 @@
 # define OP_AFF		15
 # define OP_LLD		16
 
-# define GET_VALUE(s, type) my_atoi(type >= T_IND ? s : &s[1])
+#define IS_OP(c)        (c == '+' || c == '-' || c == '/' || c == '*' ? TRUE : FALSE)
+#define DOO_OP(r, o, n) (o == '+' ? r + n : o == '-' ? r - n : o == '*' ? r * n : r / n)
+# define GET_VALUE(s, type) evalxpr(type >= T_IND ? s : &s[1])
 # define SWAP(nbr) convert_indian(&nbr, sizeof(nbr));
 # define HAVE_CODING_BYTE(n) n != 1 && n != 9 && n != 12 && n != 14 ? TRUE : FALSE
 void			convert_indian(void *, int);
