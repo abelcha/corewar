@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  2 21:15:40 2014 chalie_a
+** Last update Sun Apr  6 16:46:15 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -65,9 +65,6 @@ int			main(int ac, char **av)
   champ = parse_commandline(&av[1], sets);
   if (!champ)
     return (FAILURE);
-
-  //shw_list(champ);
-
   arena = init_arena(champ, sets->mem_size);
   if (arena == NULL)
     return (FAILURE);

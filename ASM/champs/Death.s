@@ -40,7 +40,8 @@ f7:	fork	%:f8
 f8:	fork	%:f9
 f9:	fork	%:f10
 f10:
-
+tamere:	
+	
 l1:	live	%1
 l2:	live	%1
 l3:	live	%1

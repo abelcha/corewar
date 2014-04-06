@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sat Mar 22 07:17:03 2014 chalie_a
-** Last update Thu Apr  3 00:47:35 2014 chalie_a
+** Last update Sun Apr  6 16:39:38 2014 chalie_a
 */
 
 #include <fcntl.h>
@@ -70,7 +70,6 @@ int		write_in_file(t_list *list, t_info *info)
     return (FAILURE);
   header->prog_size = get_prog_size(list);
   SWAP(header->prog_size);
-  my_printf("total prog_size = %d\n",  header->prog_size);
   memset(header->prog_name, 0, PROG_NAME_LENGTH);
   memset(header->comment, 0, COMMENT_LENGTH);
   strcpy(header->prog_name, info->filename);
@@ -81,5 +80,6 @@ int		write_in_file(t_list *list, t_info *info)
   write_data(list, fd);
   x_free(info);
   x_free(header);
+  close(fd);
   return (SUCCESS);
 }

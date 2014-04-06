@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 19 03:46:23 2014 
-** Last update Thu Apr  3 19:54:18 2014 chalie_a
+** Last update Sun Apr  6 16:35:52 2014 chalie_a
 */
 
 #include "op.h"
@@ -20,7 +20,6 @@ int		find_label(t_list *list, char *label, int *value)
   int		i;
 
   i = 0;
-  printf("value = %d\n", *value);
   tmp = list->next;
   while (tmp != list)
     {
