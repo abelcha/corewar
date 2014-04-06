@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Apr  2 18:04:47 2014 chalie_a
-** Last update Wed Apr  2 19:28:33 2014 chalie_a
+** Last update Fri Apr  4 17:31:59 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -26,7 +26,7 @@ int		print_map(t_arena *arena)
   return (DUMP);
 }
 
-int		exec_command(t_champ *champ)
+int		exec_command(t_champ *champ, t_arena *arena)
 {
   /*
   **	EXEC SHIT
@@ -57,7 +57,7 @@ int		actualise_cycles(t_arena *arena)
 int		handle_cycles(t_arena *arena, t_champ *champ)
 {
   if (--(champ->cycle) == 0)
-    exec_command(champ);
+    exec_command(champ, arena);
   return (actualise_cycles(arena));
 }
 

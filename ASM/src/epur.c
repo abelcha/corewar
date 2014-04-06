@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Mon Mar 17 19:00:51 2014 dong_n
-** Last update Thu Apr  3 00:38:46 2014 chalie_a
+** Last update Sun Apr  6 13:39:53 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -22,7 +22,7 @@ char	*epur_str(char *str)
   int	k;
   int	i;
 
-  if (!(ret = malloc(sizeof(*ret) * (my_strlen(str) + 4))))
+  if (!(ret = calloc(sizeof(*ret), (my_strlen(str) + 4))))
     return (ERROR_(MALLOC_FAIL));
   i = 0;
   k = 0;
