@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Sun Mar 30 17:55:36 2014 dong_n
-** Last update Tue Apr  8 17:11:15 2014 dong_n
+** Last update Tue Apr  8 17:31:30 2014 dong_n
 */
 
 #include <sys/types.h>
@@ -158,7 +158,7 @@ void		get_args(char *buff, t_cmd *instruct, int *i)
       while (k++ < 4)
 	{
 	  instruct->args_value[0] = ((instruct->args_value[0] << 8 & 0xFFFFFF00) |
-			       (unsigned char)buff[(*i)++]);
+				     (unsigned char)buff[(*i)++]);
 	}
     }
   else
@@ -166,6 +166,17 @@ void		get_args(char *buff, t_cmd *instruct, int *i)
       instruct->args_type[0] = 2;
       get_params_value2(buff, i, 0, instruct);
     }
+}
+
+int		get_instruction(char *arena, t_champ *champ)
+{
+  if ((champ->cmd.op = arena[i++]) > 16)
+    return (-1);
+  if (HAVE_CODING_BYTE(champ->cmd.op) == TRUE)
+    get_args_oct(arena, &(champ->cmd), &i);
+  else
+    get_args(arena, &(champ->cmd), &i);
+  return (0);
 }
 
 int		my_get_file(int fd, int prog_size)
@@ -181,7 +192,8 @@ int		my_get_file(int fd, int prog_size)
   i = 0;
   while (i < prog_size)
     {
-      instruct.op = buff[i++];
+      if ((instruct.op = buff[i++]) > 16)
+	return (-1);
       if (HAVE_CODING_BYTE(instruct.op) == TRUE)
 	get_args_oct(buff, &instruct, &i);
       else
