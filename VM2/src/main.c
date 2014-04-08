@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Sun Mar 30 17:55:36 2014 dong_n
-** Last update Tue Apr  8 15:35:03 2014 dong_n
+** Last update Tue Apr  8 17:11:15 2014 dong_n
 */
 
 #include <sys/types.h>
@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include "my.h"
 #include "vm.h"
-#include "VM.h"
 #include "op.h"
 int		my_getnbr_base(char *nbr, char *base_from);
 void		convert_indian(void *input, int n);
@@ -48,71 +47,71 @@ t_op	op_tab[] =
     {0, 0, {0}, 0, 0, 0}
   };
 
-void		show_inst(t_ins instruct)
+void		show_inst(t_cmd instruct)
 {
   int		i;
 
   i = 0;
-  printf("Instruction n°%d\n", instruct.ins);
-  printf("Number of arguments : %d\n\n", op_tab[instruct.ins - 1].nbr_args);
-  while (i < op_tab[instruct.ins - 1].nbr_args)
+  printf("Instruction n°%d\n", instruct.op);
+  printf("Number of arguments : %d\n\n", op_tab[instruct.op - 1].nbr_args);
+  while (i < op_tab[instruct.op - 1].nbr_args)
     {
       printf("Param N°%d\n", i + 1);
-      printf("Type : %d\n", instruct.type[i]);
-      printf("Args : %d\n\n", instruct.args[i]);
+      printf("Type : %d\n", instruct.args_type[i]);
+      printf("Args : %d\n\n", instruct.args_value[i]);
       i++;
     }
   printf("\n\n\n");
 }
 
-void		get_params_value2(char *buff, int *i, int j, t_ins *instruct)
+void		get_params_value2(char *buff, int *i, int j, t_cmd *instruct)
 {
   int		k;
 
   k = 0;
-  if (instruct->type[j] == 1)
-    instruct->args[j] = buff[(*i)++];
+  if (instruct->args_type[j] == 1)
+    instruct->args_value[j] = buff[(*i)++];
   else
     {
-      instruct->args[j] = 0;
+      instruct->args_value[j] = 0;
       while (k++ < 2)
 	{
-	  instruct->args[j] = ((instruct->args[j] << 8 & 0xFFFFFF00) |
+	  instruct->args_value[j] = ((instruct->args_value[j] << 8 & 0xFFFFFF00) |
 			       (unsigned char)buff[(*i)++]);
 	}
-      instruct->args[j] = (short int)instruct->args[j];
+      instruct->args_value[j] = (short int)instruct->args_value[j];
     }
 }
 
-void		get_params_value4(char *buff, int *i, int j, t_ins *instruct)
+void		get_params_value4(char *buff, int *i, int j, t_cmd *instruct)
 {
   int		k;
 
   k = 0;
-  if (instruct->type[j] != 2)
+  if (instruct->args_type[j] != 2)
     get_params_value2(buff, i, j, instruct);
   else
     {
-      instruct->args[j] = 0;
+      instruct->args_value[j] = 0;
       while (k++ < 4)
 	{
-	  instruct->args[j] = ((instruct->args[j] << 8 & 0xFFFFFF00) |
+	  instruct->args_value[j] = ((instruct->args_value[j] << 8 & 0xFFFFFF00) |
 			       (unsigned char)buff[(*i)++]);
 	}
     }
 }
 
-void		get_ld_params(char *buff, int *i, int j, t_ins *instruct)
+void		get_ld_params(char *buff, int *i, int j, t_cmd *instruct)
 {
   int		k;
 
   k = 0;
   if (j == 0)
     {
-      instruct->args[0] = 0;
+      instruct->args_value[0] = 0;
       while (k++ < 4)
 	{
-	  instruct->args[0] = ((instruct->args[0] << 8 & 0xFFFFFF00) |
+	  instruct->args_value[0] = ((instruct->args_value[0] << 8 & 0xFFFFFF00) |
 			       (unsigned char)buff[(*i)++]);
 	}
     }
@@ -120,7 +119,7 @@ void		get_ld_params(char *buff, int *i, int j, t_ins *instruct)
     get_params_value2(buff, i, j, instruct);
 }
 
-void		get_args_oct(char *buff, t_ins *instruct, int *i)
+void		get_args_oct(char *buff, t_cmd *instruct, int *i)
 {
   char		oct;
   int		k;
@@ -129,16 +128,16 @@ void		get_args_oct(char *buff, t_ins *instruct, int *i)
   k = 6;
   j = 0;
   oct = buff[(*i)++];
-  while (k >= 0 && j < op_tab[instruct->ins - 1].nbr_args)
+  while (k >= 0 && j < op_tab[instruct->op - 1].nbr_args)
     {
-      instruct->type[j] = (oct >> k) & 3;
-      if (instruct->ins == 2 || instruct->ins == 13)
+      instruct->args_type[j] = (oct >> k) & 3;
+      if (instruct->op == 2 || instruct->op == 13)
 	get_ld_params(buff, i, j, instruct);
-      else if (instruct->ins == 3 || (instruct->ins > 5 && instruct->ins < 9))
+      else if (instruct->op == 3 || (instruct->op > 5 && instruct->op < 9))
 	get_params_value4(buff, i, j, instruct);
-      else if (instruct->ins == 16 || instruct->ins == 14 ||
-	       (instruct->ins > 3 && instruct->ins < 6) || instruct->ins == 10 ||
-	       instruct->ins == 11)
+      else if (instruct->op == 16 || instruct->op == 14 ||
+	       (instruct->op > 3 && instruct->op < 6) || instruct->op == 10 ||
+	       instruct->op == 11)
 	get_params_value2(buff, i, j, instruct);
       else
 	(*i)++;
@@ -147,26 +146,25 @@ void		get_args_oct(char *buff, t_ins *instruct, int *i)
     }
 }
 
-void		get_args(char *buff, t_ins *instruct, int *i)
+void		get_args(char *buff, t_cmd *instruct, int *i)
 {
   int		k;
 
   k = 0;
-  if (instruct->ins == 1)
+  if (instruct->op == 1)
     {
-      instruct->type[0] = 2;
-      instruct->args[0] = 0;
+      instruct->args_type[0] = 2;
+      instruct->args_value[0] = 0;
       while (k++ < 4)
 	{
-	  instruct->args[0] = ((instruct->args[0] << 8 & 0xFFFFFF00) |
+	  instruct->args_value[0] = ((instruct->args_value[0] << 8 & 0xFFFFFF00) |
 			       (unsigned char)buff[(*i)++]);
 	}
     }
   else
     {
-      instruct->type[0] = 2;
+      instruct->args_type[0] = 2;
       get_params_value2(buff, i, 0, instruct);
-      instruct->args[0] = (short int)instruct->args[0];
     }
 }
 
@@ -174,7 +172,7 @@ int		my_get_file(int fd, int prog_size)
 {
   char		*buff;
   int		i;
-  t_ins		instruct;
+  t_cmd		instruct;
 
   if (!(buff = xmalloc(sizeof(*buff) * prog_size)))
     return (-1);
@@ -183,8 +181,8 @@ int		my_get_file(int fd, int prog_size)
   i = 0;
   while (i < prog_size)
     {
-      instruct.ins = buff[i++];
-      if (HAVE_CODING_BYTE(instruct.ins) == TRUE)
+      instruct.op = buff[i++];
+      if (HAVE_CODING_BYTE(instruct.op) == TRUE)
 	get_args_oct(buff, &instruct, &i);
       else
 	get_args(buff, &instruct, &i);
