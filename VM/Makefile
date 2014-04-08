@@ -5,7 +5,7 @@
 ## Login   <dong_n@epitech.net>
 ## 
 ## Started on  Mon Mar 17 18:59:53 2014 dong_n
-## Last update Fri Mar 28 12:21:10 2014 chalie_a
+## Last update Tue Apr  8 17:11:31 2014 chalie_a
 ##
 
 CC	=	clang -g3
@@ -36,7 +36,7 @@ LIB	=	../lib/my_put_nbr.c	\
 
 OBJ	=	$(SRC:.c=.o) $(LIB:.c=.o)
 
-CFLAGS	=	-I../includes/	#-W -Wall -Wextra -pedantic
+CFLAGS	=	-I../includes/	-W -Wall -Wextra -pedantic
 
 RM	=	rm -fr
 

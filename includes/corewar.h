@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 16:21:13 2014 
-** Last update Sun Apr  6 21:30:10 2014 chalie_a
+** Last update Sun Apr  6 22:10:52 2014 chalie_a
 */
 
 #ifndef _COREWAR_H_
@@ -42,7 +42,7 @@ int	evalxpr(char *);
 
 # define IS_OP(c)        (c == '+' || c == '-' || c == '/' || c == '*' ? TRUE : FALSE)
 # define DOO_OP(r, o, n) (o == '+' ? r + n : o == '-' ? r - n : o == '*' ? r * n : r / n)
-# define GET_VALUE(s, type) evalxpr(type >= T_IND /*|| !s*/ ? s : &s[1])
+# define GET_VALUE(s, type) evalxpr(type >= T_IND || !s ? s : &s[1])
 # define SWAP(nbr) convert_indian(&nbr, sizeof(nbr));
 # define HAVE_CODING_BYTE(n) n != 1 && n != 9 && n != 12 && n != 14 ? TRUE : FALSE
 

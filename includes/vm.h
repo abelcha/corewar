@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Thu Apr  3 15:25:42 2014 chalie_a
+** Last update Tue Apr  8 17:23:33 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -52,7 +52,7 @@ typedef struct          s_champ
   int			carry;
   int			pc;
   t_hd			*header;
-  t_cmd			*cmd;
+  t_cmd			cmd;
   t_line		*line;
   struct s_champ	*next;
   struct s_champ	*prev;

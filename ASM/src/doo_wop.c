@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Mar 26 00:11:34 2014 chalie_a
-** Last update Sun Apr  6 21:30:37 2014 chalie_a
+** Last update Sun Apr  6 22:10:21 2014 chalie_a
 */
 
 #include <stdlib.h>
@@ -37,10 +37,9 @@ int	evalxpr(char *str)
   int	res;
   char	op;
 
-  i = -1;
-
-  //  if (!str)
-  // return (0);
+  if (!str)
+    return (0);
+  return (atoi(str));
   i = -1;
   res = cut_nbr(str, &i);
   while (str && str[++i])

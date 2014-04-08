@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Apr  2 18:04:47 2014 chalie_a
-** Last update Fri Apr  4 17:31:59 2014 chalie_a
+** Last update Tue Apr  8 17:33:41 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -28,9 +28,12 @@ int		print_map(t_arena *arena)
 
 int		exec_command(t_champ *champ, t_arena *arena)
 {
-  /*
-  **	EXEC SHIT
-  */
+  if (get_instruction(&(arena->arena[pc]), champ) == FAILURE)
+    {
+      champ->cycle = 1;
+      return (FAILURE):
+    }
+
   return (SUCCESS);
 }
 
