@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Sun Mar 30 17:55:36 2014 dong_n
-** Last update Thu Apr  3 18:00:32 2014 dong_n
+** Last update Tue Apr  8 15:35:03 2014 dong_n
 */
 
 #include <sys/types.h>
@@ -70,11 +70,17 @@ void		get_params_value2(char *buff, int *i, int j, t_ins *instruct)
   int		k;
 
   k = 0;
-  instruct->args[j] = 0;
-  while (k++ < 2)
+  if (instruct->type[j] == 1)
+    instruct->args[j] = buff[(*i)++];
+  else
     {
-      instruct->args[j] = ((instruct->args[j] << 8 & 0xFFFFFF00) |
-			   (unsigned char)buff[(*i)++]);
+      instruct->args[j] = 0;
+      while (k++ < 2)
+	{
+	  instruct->args[j] = ((instruct->args[j] << 8 & 0xFFFFFF00) |
+			       (unsigned char)buff[(*i)++]);
+	}
+      instruct->args[j] = (short int)instruct->args[j];
     }
 }
 
@@ -83,11 +89,16 @@ void		get_params_value4(char *buff, int *i, int j, t_ins *instruct)
   int		k;
 
   k = 0;
-  instruct->args[j] = 0;
-  while (k++ < 4)
+  if (instruct->type[j] != 2)
+    get_params_value2(buff, i, j, instruct);
+  else
     {
-      instruct->args[j] = ((instruct->args[j] << 8 & 0xFFFFFF00) |
-			   (unsigned char)buff[(*i)++]);
+      instruct->args[j] = 0;
+      while (k++ < 4)
+	{
+	  instruct->args[j] = ((instruct->args[j] << 8 & 0xFFFFFF00) |
+			       (unsigned char)buff[(*i)++]);
+	}
     }
 }
 
@@ -97,7 +108,14 @@ void		get_ld_params(char *buff, int *i, int j, t_ins *instruct)
 
   k = 0;
   if (j == 0)
-    get_params_value4(buff, i, j, instruct);
+    {
+      instruct->args[0] = 0;
+      while (k++ < 4)
+	{
+	  instruct->args[0] = ((instruct->args[0] << 8 & 0xFFFFFF00) |
+			       (unsigned char)buff[(*i)++]);
+	}
+    }
   else
     get_params_value2(buff, i, j, instruct);
 }
@@ -110,20 +128,20 @@ void		get_args_oct(char *buff, t_ins *instruct, int *i)
 
   k = 6;
   j = 0;
-  my_put_nbr(buff[*i]);
-  my_putstr("   ");
   oct = buff[(*i)++];
   while (k >= 0 && j < op_tab[instruct->ins - 1].nbr_args)
     {
       instruct->type[j] = (oct >> k) & 3;
       if (instruct->ins == 2 || instruct->ins == 13)
 	get_ld_params(buff, i, j, instruct);
-      else if (instruct->ins == 4 || instruct->ins == 5)
-	instruct->args[j] = buff[(*i)++];
-      else
+      else if (instruct->ins == 3 || (instruct->ins > 5 && instruct->ins < 9))
+	get_params_value4(buff, i, j, instruct);
+      else if (instruct->ins == 16 || instruct->ins == 14 ||
+	       (instruct->ins > 3 && instruct->ins < 6) || instruct->ins == 10 ||
+	       instruct->ins == 11)
 	get_params_value2(buff, i, j, instruct);
-      if (instruct->type[j] == 2)
-	instruct->args[j] = (short int)instruct->args[j];
+      else
+	(*i)++;
       k = k - 2;
       j++;
     }
@@ -137,12 +155,18 @@ void		get_args(char *buff, t_ins *instruct, int *i)
   if (instruct->ins == 1)
     {
       instruct->type[0] = 2;
-      get_params_value4(buff, i, 0, instruct);
+      instruct->args[0] = 0;
+      while (k++ < 4)
+	{
+	  instruct->args[0] = ((instruct->args[0] << 8 & 0xFFFFFF00) |
+			       (unsigned char)buff[(*i)++]);
+	}
     }
   else
     {
       instruct->type[0] = 2;
       get_params_value2(buff, i, 0, instruct);
+      instruct->args[0] = (short int)instruct->args[0];
     }
 }
 
@@ -159,8 +183,6 @@ int		my_get_file(int fd, int prog_size)
   i = 0;
   while (i < prog_size)
     {
-      my_put_nbr(buff[i]);
-      my_putstr("            ");
       instruct.ins = buff[i++];
       if (HAVE_CODING_BYTE(instruct.ins) == TRUE)
 	get_args_oct(buff, &instruct, &i);
