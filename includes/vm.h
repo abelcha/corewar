@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Tue Apr  8 17:23:33 2014 chalie_a
+** Last update Wed Apr  9 20:38:25 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -48,11 +48,12 @@ typedef struct          s_champ
   int			champ_nbr;
   char			*code;
   int			reg[REG_NUMBER];
+  int			cycle_to_die;
   int			cycle;
   int			carry;
   int			pc;
   t_hd			*header;
-  t_cmd			cmd;
+  t_cmd			*cmd;
   t_line		*line;
   struct s_champ	*next;
   struct s_champ	*prev;
@@ -69,6 +70,9 @@ typedef struct		s_arena
   int			nbr_live;
 }			t_arena;
 
+typedef int		(*ptrft)(t_champ *champ, t_arena *arena);
+
+int	get_instruction(char *, t_champ *);
 t_arena	*init_arena(t_champ *, int);
 int	option_error(int);
 int	not_a_number(char *);

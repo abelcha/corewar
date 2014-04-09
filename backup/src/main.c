@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  9 18:51:55 2014 chalie_a
+** Last update Tue Apr  8 18:37:12 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -68,10 +68,10 @@ int			main(int ac, char **av)
   arena = init_arena(champ, sets->mem_size);
   if (arena == NULL)
     return (FAILURE);
-    display_arena(arena->arena, arena->mem_size);
-    display_sets(sets);
-    shw_list(champ);
-    start_battle(champ, arena, sets);
-  //printf("champ nbr = %d\n", arena->nb_champs);
+  start_battle(champ, arena, sets);
+  shw_list(champ);
+  display_arena(arena->arena, arena->mem_size);
+  display_sets(sets);
+  printf("champ nbr = %d\n", arena->nb_champs);
   return (SUCCESS);
 }

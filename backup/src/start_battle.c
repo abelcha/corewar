@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Wed Apr  2 18:04:47 2014 chalie_a
-** Last update Wed Apr  9 21:49:44 2014 chalie_a
+** Last update Tue Apr  8 19:12:03 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -18,11 +18,6 @@
 
 #define DUMP	542639
 
-int	cycle_tab[17] = {10, 5, 5, 10, 10,
-                    6, 6, 6, 20, 25,
-                    25, 800, 10, 50,
-                    1000, 2};
-
 int		print_map(t_arena *arena)
 {
   /*
@@ -33,18 +28,13 @@ int		print_map(t_arena *arena)
 }
 int		exec_command(t_champ *champ, t_arena *arena)
 {
-  champ->cmd->op = 0;
-  memset(champ->cmd->args_type, 0, 4);
-  memset(champ->cmd->args_value, 0, 4);
-  if (get_instruction(&(arena->arena[champ->pc]), champ) == FAILURE)
+  if (get_instruction(&(arena->arena[champ->pc]), champ->cmd) == FAILURE)
     {
-      champ->pc = (champ->pc + 1) % arena->mem_size;
       champ->cycle = 1;
       return (FAILURE);
     }
-  //printf("champ = %s instruction = %d\n", champ->line->filename, champ->cmd->op);
-  champ->cycle = cycle_tab[champ->cmd->op - 1];
-  return (exec_instruction(champ, arena));
+  exec_instruction(champ, arena);
+  return (SUCCESS);
 }
 
 int		who_is_alive(t_champ *champ, t_arena *arena)
@@ -53,14 +43,16 @@ int		who_is_alive(t_champ *champ, t_arena *arena)
   /*
   **	COUNT SHIT
   */
+  if (++i == 2)
+    return (1);
   return (42);
 }
 
 int		actualise_cycles(t_arena *arena)
 {
+  ++(arena->cycle_to_die);
   if (arena->nbr_live >= NBR_LIVE)
     {
-      printf("cycle_to_die = %d nbr_live = %d\n", arena->cycle_to_die, arena->nbr_live);
       arena->cycle_to_die -= CYCLE_DELTA;
       arena->nbr_live = 0;
     }
@@ -88,7 +80,6 @@ int		start_battle(t_champ *root, t_arena *arena, t_settings *sets)
 	    return (SUCCESS);
 	  if (++(arena->current_cycle) == sets->dump)
 	    return (print_map(arena));
-	  ++(champ->cycle_to_die);
 	}
     }
    return (SUCCESS);

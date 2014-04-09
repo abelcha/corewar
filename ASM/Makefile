@@ -14,8 +14,8 @@ NAME	=	asm
 
 SRC	=	src/epur.c		\
 		src/asm.c		\
-		src/get_params.c	\
-		src/op.c		\
+		src/get_params.c\
+		../op.c			\
 		src/my_list.c		\
 		src/write.c		\
 		src/parsing.c		\

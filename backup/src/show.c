@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  9 18:54:18 2014 chalie_a
+** Last update Wed Apr  2 22:29:31 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -46,9 +46,9 @@ void			display_arena(char *str, int mem_size)
   while (++i < mem_size)
     if (str[i] == 0 && str[i + 1] == 0 
 	&& str[i + 2] == 0  && str[i + 3] == 0 && str[i + 4] == 0)
-      printf("%s %d%s", BLUE, str[i], ENDOF);
+      printf("%s%x%s", BLUE, str[i], ENDOF);
       else
-    printf("%s %d%s", RED, str[i], ENDOF);
+    printf("%s%x%s", RED, str[i], ENDOF);
   printf("mem size = %d\n", mem_size);
 }
 

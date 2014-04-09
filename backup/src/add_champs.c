@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  9 16:04:20 2014 chalie_a
+** Last update Tue Apr  8 19:03:48 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -85,14 +85,13 @@ t_champ		*init_champ()
   champ = malloc(sizeof(t_champ));
   champ->line = malloc(sizeof(t_line));
   champ->header = malloc(sizeof(t_hd));
-  champ->cmd = calloc(sizeof(t_cmd), 1);
+  champ->cmd = malloc(sizeof(t_cmd));
   if (!champ || !champ->line || !champ->cmd)
     return (ERROR_("Error : Malloc Failed\n"));
   champ->line->filename = NULL;
   champ->line->load_a = -1;
   champ->cycle = 1;
-  champ->cycle_to_die = 0;
-   champ->code = NULL;
+  champ->code = NULL;
   return (champ);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 31 22:51:32 2014 chalie_a
-** Last update Wed Apr  9 16:18:30 2014 chalie_a
+** Last update Wed Apr  2 21:05:50 2014 chalie_a
 */
 
 #include <stdlib.h>
@@ -57,9 +57,7 @@ t_arena		*init_arena(t_champ *root, int mem_size)
   t_champ	*champ;
   t_arena	*arena;
   int		i;
-  int		j;
 
-  j = 0;
   i = 0;
   champ = root;
   if (!(arena = malloc(sizeof(t_arena))))
@@ -68,10 +66,6 @@ t_arena		*init_arena(t_champ *root, int mem_size)
     return (NULL);
   if (!(arena->arena = calloc(mem_size + 10,  sizeof(char))))
     return (NULL);
-  arena->current_cycle = 0;
-  arena->cycle_to_die = CYCLE_TO_DIE;
-  arena->nbr_live = 0;
-  champ->reg[0] = 0;
   while ((champ = champ->next) != root)
     {
       champ->pc = champ->line->load_a != -1 ? champ->line->load_a : i;
@@ -79,7 +73,6 @@ t_arena		*init_arena(t_champ *root, int mem_size)
 			 champ->header->prog_size, champ->pc) == FAILURE)
 	return (NULL);
       i = i + (arena->mem_size / arena->nb_champs);
-      champ->reg[0] = ++j;
     }
   return (arena);
 }
