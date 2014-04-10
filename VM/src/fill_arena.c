@@ -23,7 +23,7 @@ int		write_in_arena(t_arena *arena, char *code, int size, int pos)
   while (pos < save)
     {
       if (pos >= (arena->mem_size) || arena->arena[pos] != 0)
-	return (ERROR("Arena is too small\n"));
+		 return (ERROR("Arena is too small\n"));
       arena->arena[pos] = code[i];
       ++pos;
       ++i;

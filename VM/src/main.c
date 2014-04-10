@@ -72,6 +72,7 @@ int			main(int ac, char **av)
     display_sets(sets);
     shw_list(champ);
     start_battle(champ, arena, sets);
-  //printf("champ nbr = %d\n", arena->nb_champs);
+    display_arena(arena->arena, arena->mem_size);
+   //printf("champ nbr = %d\n", arena->nb_champs);
   return (SUCCESS);
 }

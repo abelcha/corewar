@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 30 12:52:14 2014 chalie_a
-** Last update Wed Apr  9 20:38:25 2014 chalie_a
+** Last update Thu Apr 10 16:17:31 2014 chalie_a
 */
 
 #ifndef _VM_H_
@@ -61,6 +61,7 @@ typedef struct          s_champ
 
 typedef struct		s_arena
 {
+  t_champ		*winner;
   int			total_size;
   int			nb_champs;
   int			mem_size;
@@ -72,6 +73,7 @@ typedef struct		s_arena
 
 typedef int		(*ptrft)(t_champ *champ, t_arena *arena);
 
+t_champ	*init_champ();
 int	get_instruction(char *, t_champ *);
 t_arena	*init_arena(t_champ *, int);
 int	option_error(int);

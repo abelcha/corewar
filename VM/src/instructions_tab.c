@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Apr  8 20:16:41 2014 chalie_a
-** Last update Thu Apr 10 01:31:05 2014 chalie_a
+** Last update Thu Apr 10 16:22:02 2014 chalie_a
 */
 
 #include "corewar.h"
@@ -27,23 +27,25 @@ int		do_live(t_champ *champ, t_arena *arena)
 {
   champ->cycle_to_die = -1;
   arena->nbr_live++;
-  my_printf("The Champ n:%d (%s) is alive.\n",
-	    champ->champ_nbr, champ->line->filename);
+  arena->winner = champ;
+  my_printf("The Champ %s is alive.\n",
+  	    champ->line->filename);
 }
 
 int		ins_live(t_champ *champ, t_arena *arena)
-{
+{ 
   t_champ	*tmp;
   char		flag;
    
-   //   if (champ->cmd->args_value[0] == champ->reg[0])
-     do_live(champ, arena);
-     return (0);
+
+  if (champ->cmd->args_value[0] == champ->reg[0])
+    do_live(champ, arena);
+       return (0);
    tmp = champ->next;
    while (tmp != champ)
      {
-	 printf("arg = %d , reg [0] = %d\n", champ->cmd->args_value[0],  tmp->reg[0]);
-      if (champ->cmd->args_value[0] == tmp->reg[0])
+       printf("arg = %d , reg [0] = %d\n", champ->cmd->args_value[0], tmp->reg[0]);
+       if (champ->cmd->args_value[0] == tmp->reg[0])
 	 do_live(tmp, arena); 
        tmp = tmp->next;
      }
@@ -65,17 +67,58 @@ void	write_on_arena(t_arena *arena, int pos, int size, int result)
   int	i;
 
   i = -1;
-  k = 3;
-  printf("result = %d\n", result);
-  printf("lol = ");
+  k = size - 1;
   while (k >= 0)
     {
-      arena->arena[pos++ /*% arena->mem_size*/] =  (result / my_pow(256, k));
-      printf("%d ", arena->arena[pos - 1]);
+      pos++;
+      arena->arena[ABS(pos, arena->mem_size)] = (result / my_pow(256, k));
       k--;
     }
-  exit(0);
 }
+
+//**************************************//
+
+int	ins_sti(t_champ *champ, t_arena *arena)
+{
+   int	op1;
+   int	op2;
+   int  op3;
+   int	result;
+
+   op1 = champ->cmd->args_value[0];
+   op2 = champ->cmd->args_value[1];
+   op3 = champ->cmd->args_value[2];
+
+   if (champ->cmd->args_type[1] == T_REG)
+	  op2 = champ->reg[REG_VALUE(2)];
+   if (champ->cmd->args_type[2] == T_REG)
+	  op3 = champ->reg[REG_VALUE(3)];
+   result = champ->reg[REG_VALUE(1)];
+						  
+						  
+   write_on_arena(arena, champ->pc + op2 + op1, 4, result);
+   return (SUCCESS);
+}
+//*************************************//
+
+int	ins_st(t_champ *champ, t_arena *arena)
+{
+   int	op1;
+   int	op2;
+   int	result;
+
+   op1 = champ->cmd->args_value[0];
+   op2 = champ->cmd->args_value[1];
+
+   if (champ->cmd->args_type[0] == T_REG)
+	  op1 = champ->reg[REG_VALUE(1)];
+   if (champ->cmd->args_type[1] == T_REG)
+	  REG_NBR(2) = op1;
+   else
+	  write_on_arena(arena, champ->pc + op2, 4, op1);
+   return (SUCCESS);
+}
+
 
 int	read_in_arena(char *buff,int pos, int size)
 {
@@ -93,33 +136,21 @@ int	ins_ld(t_champ *champ, t_arena *arena)
 {
    int	result;
    int	mod;
-   
+ 
    mod = champ->cmd->op == 10 ? IDX_MOD : arena->mem_size;
    result = champ->cmd->args_value[0];
    if (result != 0)
-	  REG_NBR(2) = champ->cmd->args_value[0] % mod;
+     REG_NBR(2) = result % mod;
    champ->carry = (result ? 0 : 1);
    return (SUCCESS);
 }
 
-int	ins_st(t_champ *champ, t_arena *arena)
-{
-  int	op1;
-  int	op2;
-  int	result;
 
-  op1 = champ->cmd->args_value[0];
-  op2 = champ->cmd->args_value[1];
-  printf("op1 = %d op2 = %d\n", op1, op2);
-  if (champ->cmd->args_type[0] == T_REG)
-    op1 = champ->reg[REG_VALUE(1)];
-  op1 = 5412;
-  if (champ->cmd->args_type[1] == T_REG)
-    REG_NBR(2) = op1;
-  else
-    write_on_arena(arena, champ->pc + op2, 4, op1);
-  return (SUCCESS);
-}
+
+
+
+
+
 
 int	ins_operation(t_champ *champ, t_arena *arena)
 {
@@ -134,6 +165,7 @@ int	ins_operation(t_champ *champ, t_arena *arena)
 
    if (champ->cmd->args_type[1] == T_REG)
      op2 = champ->reg[REG_VALUE(2)];
+   
    result = what_op(op1, op2, champ->cmd->op);
    champ->carry = (result ? 0 : 1);
    REG_NBR(3) = result;
@@ -153,7 +185,7 @@ int	ins_ldi(t_champ *champ, t_arena *arena)
   int	op2;
   int	result;
   int	mod;
-  
+
   mod = champ->cmd->op == 10 ? IDX_MOD : arena->mem_size;
   op1 = champ->cmd->args_value[0];
   op2 = champ->cmd->args_value[1];
@@ -168,15 +200,64 @@ int	ins_ldi(t_champ *champ, t_arena *arena)
    return (SUCCESS);
 }
 
-int	ins_sti(t_champ *champ, t_arena *arena)
+void champ_dup(t_champ *champ, t_champ *fork)
 {
-   return (SUCCESS);
+   fork->champ_nbr = champ->champ_nbr;
+   fork->carry = 0;
+   memset(fork->reg, 0, 16);
+   memset(fork->cmd->args_type, 0, 4);
+   memset(fork->cmd->args_value, 0, 4);
+   fork->reg[0] = champ->reg[0];
+   fork->cycle_to_die = champ->cycle_to_die;
+   fork->cycle = champ->cycle;
+   fork->line->filename = strdup(champ->line->filename);
+   fork->code = calloc(champ->header->prog_size + 4, sizeof(char));
+   if (!fork)
+     exit(0); 
+   int	i;
+   i = -1;
+   while (++i < champ->header->prog_size)
+     fork->code[i] = champ->code[i];
+   fork->header->prog_size = champ->header->prog_size;
+   fork->champ_nbr = champ->champ_nbr;
+
+}
+
+void	dup_in_arena(t_champ *fork, t_arena *arena, int pos, int mod)
+{
+   int	i;
+   int	j;
+
+   j = -1;
+   ABS(pos, arena->mem_size);
+   i = pos;
+   while (++j < fork->header->prog_size - 1)
+     {
+       ++i;
+       arena->arena[i % arena->mem_size] = fork->code[j];
+       //  printf("i = %d\n", i);
+       //  usleep(5000);
+     }
+   //sleep(1);
 }
 
 int	ins_fork(t_champ *champ, t_arena *arena)
 {
+   t_champ   *fork;
+   int       op1;
+   int       mod;
 
-   return (SUCCESS);
+   mod = champ->cmd->op == 15 ? arena->mem_size : IDX_MOD;
+   op1 = champ->cmd->args_value[0];
+   if (!(fork = init_champ()))
+     return (FAILURE);
+   champ_dup(champ, fork);
+   champ->pc = op1 % arena->mem_size;
+   dup_in_arena(fork, arena, op1, mod);
+   fork->prev = champ->prev;
+   fork->next = champ;
+   champ->prev->next = fork;
+   champ->prev = fork;
 }
 
 int	ins_lfork(t_champ *champ, t_arena *arena)
@@ -187,6 +268,6 @@ int	ins_lfork(t_champ *champ, t_arena *arena)
 int	ins_aff(t_champ *champ, t_arena *arena)
 {
    ABS(champ->cmd->args_value[0], 16);
-   my_printf("%c", (champ->reg[champ->cmd->args_value[0]]) % 256);
+   //my_printf("%c", (champ->reg[champ->cmd->args_value[0]]) % 256);
    return (SUCCESS);
 }

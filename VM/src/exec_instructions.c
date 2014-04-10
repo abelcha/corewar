@@ -5,7 +5,7 @@
  ** Login   <abel@chalier.me>
  **
  ** Started on  Wed Mar 19 03:46:23 2014
-** Last update Wed Apr  9 20:50:52 2014 chalie_a
+** Last update Thu Apr 10 13:40:42 2014 chalie_a
  */
 
 #include "vm.h"
@@ -29,12 +29,13 @@ int	show_inst(t_champ *champ)
    int	i;
    
    i = -1;
-   printf("champnbr = %s\n", champ->line->filename);
+   printf("\n\nchampnbr = %s", champ->line->filename);
    printf("Istruction = %d\n", champ->cmd->op);
-   while (++i < 4)
+   while (++i < 3)
      {
        printf("argtype = %d, argvalue = %d\n", champ->cmd->args_type[i], champ->cmd->args_value[i]);
      }
+   //usleep(900000);
 }
 
 int	exec_instruction(t_champ *champ, t_arena *arena)
@@ -44,8 +45,14 @@ int	exec_instruction(t_champ *champ, t_arena *arena)
 				       ins_operation, ins_operation, 
 				       ins_operation, ins_zjmp, ins_ldi, 
 				       ins_sti, ins_fork, ins_ld, ins_ldi,
-				       ins_lfork, ins_aff};
-
-   ins_tab[champ->cmd->op  - 1](champ, arena);
+				       ins_fork, ins_aff};
+   /*  if (champ->cmd->op == 1)
+     {   
+       printf("lol = %d\n", champ->cmd->args_value[0]);
+       usleep(200000);
+     }   */
+   //show_inst(champ);
+   //return (SUCCESS);
+      ins_tab[champ->cmd->op - 1](champ, arena);
    return (SUCCESS);
 }
