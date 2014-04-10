@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Apr  8 20:16:41 2014 chalie_a
-** Last update Wed Apr  9 21:48:34 2014 chalie_a
+** Last update Thu Apr 10 01:31:05 2014 chalie_a
 */
 
 #include "corewar.h"
@@ -33,8 +33,8 @@ int		do_live(t_champ *champ, t_arena *arena)
 
 int		ins_live(t_champ *champ, t_arena *arena)
 {
-   t_champ	*tmp;
-   char		flag;
+  t_champ	*tmp;
+  char		flag;
    
    //   if (champ->cmd->args_value[0] == champ->reg[0])
      do_live(champ, arena);
@@ -48,6 +48,33 @@ int		ins_live(t_champ *champ, t_arena *arena)
        tmp = tmp->next;
      }
    return (SUCCESS);
+}
+
+int     my_pow(int nb, int power)
+{
+  if (power == 0)
+    return (1);
+  else if (power > 1)
+    nb = nb * my_pow(nb, power - 1);
+  return (nb);
+}
+
+void	write_on_arena(t_arena *arena, int pos, int size, int result)
+{
+  int	k;
+  int	i;
+
+  i = -1;
+  k = 3;
+  printf("result = %d\n", result);
+  printf("lol = ");
+  while (k >= 0)
+    {
+      arena->arena[pos++ /*% arena->mem_size*/] =  (result / my_pow(256, k));
+      printf("%d ", arena->arena[pos - 1]);
+      k--;
+    }
+  exit(0);
 }
 
 int	read_in_arena(char *buff,int pos, int size)
@@ -77,6 +104,20 @@ int	ins_ld(t_champ *champ, t_arena *arena)
 
 int	ins_st(t_champ *champ, t_arena *arena)
 {
+  int	op1;
+  int	op2;
+  int	result;
+
+  op1 = champ->cmd->args_value[0];
+  op2 = champ->cmd->args_value[1];
+  printf("op1 = %d op2 = %d\n", op1, op2);
+  if (champ->cmd->args_type[0] == T_REG)
+    op1 = champ->reg[REG_VALUE(1)];
+  op1 = 5412;
+  if (champ->cmd->args_type[1] == T_REG)
+    REG_NBR(2) = op1;
+  else
+    write_on_arena(arena, champ->pc + op2, 4, op1);
   return (SUCCESS);
 }
 
@@ -85,13 +126,14 @@ int	ins_operation(t_champ *champ, t_arena *arena)
   int	op1;
   int	op2;
   int	result;
-  
+
    op1 = champ->cmd->args_value[0];
    op2 = champ->cmd->args_value[1];
    if (champ->cmd->args_type[0] == T_REG)
      op1 = champ->reg[REG_VALUE(1)];
+
    if (champ->cmd->args_type[1] == T_REG)
-     op1 = champ->reg[REG_VALUE(1)];
+     op2 = champ->reg[REG_VALUE(2)];
    result = what_op(op1, op2, champ->cmd->op);
    champ->carry = (result ? 0 : 1);
    REG_NBR(3) = result;
@@ -133,6 +175,7 @@ int	ins_sti(t_champ *champ, t_arena *arena)
 
 int	ins_fork(t_champ *champ, t_arena *arena)
 {
+
    return (SUCCESS);
 }
 
