@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Fri Oct 11 09:56:48 2013 david$
-** Last update Wed Mar 12 20:03:31 2014 dong_n
+** Last update Thu Apr 10 18:31:36 2014 chalie_a
 */
 
 #ifndef MY_H_
@@ -16,7 +16,7 @@ void		my_putstr(char *str);
 void		my_put_error(char *str);
 int		my_strlen(char *str);
 int		my_getnbr(char *str);
-int		my_strcmp(char *s1, char *s2);
+int		my_strcmp(const char *s1, const char *s2);
 int		my_put_nbr(int nbr);
 void		*xmalloc(unsigned long size);
 

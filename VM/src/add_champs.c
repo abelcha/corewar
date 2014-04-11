@@ -5,11 +5,10 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Wed Apr  9 16:04:20 2014 chalie_a
+** Last update Thu Apr 10 18:53:21 2014 chalie_a
 */
 
 #include <unistd.h>
-#include <fcntl.h>
 #include <stdlib.h>
 #include "corewar.h"
 #include "op.h"
@@ -17,23 +16,10 @@
 #include "x_colors.h"
 #include "vm.h"
 
-int		is_number(char *str)
+static int		line_cmp(const char *str)
 {
-  int		i;
-
-  i = -1;
-  if (!str)
-    return (FALSE);
-  while (str[++i])
-    if (str[i] > '9' || str[i] < '0')
-      return (FALSE);
-  return (TRUE);
-}
-
-int			line_cmp(char *str)
-{
-  static char		*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
-  int			i;
+  static const char	*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
+  char			i;
 
   i = -1;
   while (++i < 5)
@@ -42,7 +28,8 @@ int			line_cmp(char *str)
   return (-1);
 }
 
-int			fill_line(t_champ *champ, t_settings *sets, int cmp, int value)
+static int		fill_line(t_champ *champ, t_settings *sets, 
+				  const int cmp, const int value)
 {
   if (value < 0)
     return (option_error(cmp));
@@ -59,13 +46,14 @@ int			fill_line(t_champ *champ, t_settings *sets, int cmp, int value)
   return (SUCCESS);
 }
 
-int		add_in_list(t_champ *new_elem, t_champ *champ, char *str)
+static int		add_in_list(t_champ *new_elem, t_champ *champ,
+				    char *str)
 {
-  int		len;
+  unsigned short	len;
 
-  len = strlen(str);
+  len = my_strlen(str);
   if (len > 4)
-    if (!strcmp(&str[len - 4], ".cor"))
+    if (!my_strcmp(&str[len - 4], ".cor"))
     {
       new_elem->line->filename = str;
       new_elem->prev = champ->prev;
@@ -78,45 +66,26 @@ int		add_in_list(t_champ *new_elem, t_champ *champ, char *str)
   return (FAILURE);
 }
 
-t_champ		*init_champ()
+int			add_champs_in_list(t_champ *champ, char **stock,
+					   t_settings *sets)
 {
-  t_champ	*champ;
-
-  champ = malloc(sizeof(t_champ));
-  champ->line = malloc(sizeof(t_line));
-  champ->header = malloc(sizeof(t_hd));
-  champ->cmd = calloc(sizeof(t_cmd), 1);
-  if (!champ || !champ->line || !champ->cmd)
-    return (ERROR_("Error : Malloc Failed\n"));
-  champ->line->filename = NULL;
-  champ->line->load_a = -1;
-  champ->cycle = 1;
-  champ->cycle_to_die = 0;
-   champ->code = NULL;
-  return (champ);
-}
-
-int		add_champs_in_list(t_champ *champ, char **stock, t_settings *sets)
-{
-  static int	i = -1;
-  int		cmp;
-  t_champ	*new_elem;
-  static int	cpt = -1;
+  static int		i = -1;
+  static int		cpt = -1;
+  int			cmp;
+  t_champ		*new_elem;
 
   if (!(new_elem = init_champ()))
     return (FAILURE);
   new_elem->line->prog_number = ++cpt;
   while (stock[++i])
-    {
-      if ((cmp = line_cmp(stock[i])) != -1)
-	{
-	  if (is_number(stock[i + 1]) == FALSE)
-	    return (not_a_number(stock[i]));
-	  if (fill_line(new_elem, sets, cmp, my_getnbr(stock[++i])) == FAILURE)
-	    return (FAILURE);
-	}
-      else
-	return (add_in_list(new_elem, champ, stock[i])); 
-   }
+    if ((cmp = line_cmp(stock[i])) != -1)
+      {
+	if (is_number(stock[i + 1]) == FALSE)
+	  return (not_a_number(stock[i]));
+	if (fill_line(new_elem, sets, cmp, my_getnbr(stock[++i])) == FAILURE)
+	  return (FAILURE);
+      }
+    else
+      return (add_in_list(new_elem, champ, stock[i]));
   return (SUCCESS);
 }

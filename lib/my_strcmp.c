@@ -5,12 +5,12 @@
 ** Login   <chalie_a@epitech.eu>
 ** 
 ** Started on  Wed Jan  1 03:15:53 2014 chalie_a
-** Last update Sun Mar 30 18:58:06 2014 chalie_a
+** Last update Thu Apr 10 18:31:49 2014 chalie_a
 */
 
 #include "my.h"
 
-int	my_strcmp(char *s1, char *s2)
+int	my_strcmp(const char *s1, const char *s2)
 {
   int	i;
   int	error;
@@ -21,8 +21,6 @@ int	my_strcmp(char *s1, char *s2)
   nbs2 = 0;
   error = 0;
   i = 0;
-  nbs1 = my_strlen(s1);
-  nbs2 = my_strlen(s2);
   while (s1 && s2 && s1[i] == s2[i] && (i != nbs1 || i !=nbs2))
     {
       i = i + 1;

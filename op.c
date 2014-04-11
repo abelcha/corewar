@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Sun Mar 16 18:11:33 2014 
-** Last update Mon Mar 17 17:19:11 2014 
+** Last update Thu Apr 10 19:56:05 2014 chalie_a
 */
 
 #include "op.h"
@@ -28,7 +28,7 @@ t_op	op_tab[] =
      "load index"},
     {"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
      "store index"},
-    {"fork", 1, {T_DIR}, 12, 800, "fork"},
+    {"fork", 1, {T_DIR}, 12, 600, "fork"},
     {"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load"},
     {"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
      "long load index"},

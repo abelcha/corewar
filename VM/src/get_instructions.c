@@ -5,7 +5,7 @@
 ** Login   <dong_n@epitech.net>
 ** 
 ** Started on  Sun Mar 30 17:55:36 2014 dong_n
-** Last update Wed Apr  9 20:48:29 2014 chalie_a
+** Last update Thu Apr 10 23:55:07 2014 chalie_a
 */
 
 #include <sys/types.h>
@@ -135,6 +135,6 @@ int		get_instruction(char *arena, t_champ *champ)
     get_args_oct(arena, champ->cmd, &i);
   else
     get_args(arena, champ->cmd, &i);
-  champ->pc += i % IDX_MOD;
+  champ->new_pc = i;
   return (SUCCESS);
 }

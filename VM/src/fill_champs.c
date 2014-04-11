@@ -5,7 +5,7 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Mon Mar 31 17:30:06 2014 chalie_a
-** Last update Wed Apr  2 15:32:43 2014 chalie_a
+** Last update Thu Apr 10 18:48:27 2014 chalie_a
 */
 
 #include <unistd.h>
@@ -17,7 +17,7 @@
 #include "x_colors.h"
 #include "vm.h"
 
-int	rd_open(char *name, int *fd)
+static int		rd_open(const char *name, int *fd)
 {
   if ((*fd = open(name, O_RDONLY)) != -1)
     return (SUCCESS);
@@ -25,23 +25,23 @@ int	rd_open(char *name, int *fd)
   return (FAILURE);
 }
 
-int	read_header(t_champ *champ, int fd)
+static int		read_header(t_champ *champ, const int fd)
 {
-  int	nb_read;
+  unsigned short	nb_read;
 
   nb_read = read(fd, champ->header, sizeof(t_hd));
   if (nb_read != sizeof(t_hd))
     return (ERROR("Error : Corrupted header\n"));
-  convert_indian(&(champ->header->prog_size), 4);
-  convert_indian(&(champ->header->magic), 4);
+  SWAP(champ->header->prog_size);
+  SWAP(champ->header->magic);
   if (champ->header->magic != COREWAR_EXEC_MAGIC)
     return (ERROR("Error : Wrong magic code\n"));
   return (SUCCESS);
 }
 
-int	read_code(t_champ *champ, int fd)
+static int		read_code(t_champ *champ, const int fd)
 {
- int	nb_read;
+ unsigned short		nb_read;
 
  champ->code = calloc(champ->header->prog_size + 2, sizeof(char));
  nb_read = read(fd, champ->code, champ->header->prog_size + 1);
@@ -50,9 +50,9 @@ int	read_code(t_champ *champ, int fd)
  return (SUCCESS);
 }
 
-int	fill_champs(t_champ *champ)
+int			fill_champs(t_champ *champ)
 {
-  int	fd;
+  int			fd;
 
   if (rd_open(champ->line->filename, &fd) == FAILURE)
     return (FAILURE);

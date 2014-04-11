@@ -20,7 +20,13 @@ SRC	=	src/main.c			\
 		src/start_battle.c	\
 		src/get_instructions.c\
 		src/show.c			\
-		src/instructions_tab.c	\
+		src/fork.c			\
+		src/jump_aff.c		\
+		src/live.c			\
+		src/utils.c			\
+		src/load.c			\
+		src/operations.c	\
+		src/store.c			\
 		src/exec_instructions.c\
 		../op.c				\
 
