@@ -5,39 +5,44 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Apr  8 20:16:41 2014 chalie_a
-** Last update Fri Apr 11 01:16:40 2014 chalie_a
+** Last update Sun Apr 13 22:42:48 2014 chalie_a
 */
 
-#include "corewar.h"
+#include "unistd.h"
 #include "vm.h"
+#include "my.h"
 
-static void	do_live(t_champ *champ, t_arena *arena)
+static int	do_live(t_champ *champ, t_arena *arena)
 {
+  char		*str;
+
   champ->cycle_to_die = -1;
   arena->nbr_live++;
   arena->winner = champ;
-  my_printf("The Champ %s is alive.\n",
-  	    champ->line->filename);
+  write(1, "The Champ ", 10);
+  str = champ->line->filename;
+  while (*str != '.' && *str)
+    write(1, str++, 1);
+  write(1, " is alive.\n", 11);
+  return (SUCCESS);
 }
 
 int		ins_live(t_champ *champ, t_arena *arena)
-{ 
+{
   t_champ	*tmp;
   char		flag;
 
-  //if (champ->cmd->args_value[0] == champ->reg[0] || arena->current_cycle % 3 < 2)
-    do_live(champ, arena);
-  //  printf("reg = %d\n", arena->current_cycle);
-    // usleep(1000);
-    //printf("liveparam = %d reg = %d\n", champ->cmd->args_value[0], champ->reg[0]);
- return (0);
-   tmp = champ->next;
-   while (tmp != champ)
-     {
-       printf("arg = %d , reg [0] = %d\n", champ->cmd->args_value[0], tmp->reg[0]);
-       if (champ->cmd->args_value[0] == tmp->reg[0])
-	 do_live(tmp, arena); 
-       tmp = tmp->next;
-     }
-   return (SUCCESS);
+  if (champ->cmd->args_value[0] == champ->reg[0] || champ->reg[0])
+    return (do_live(champ, arena));
+  else
+    {
+      tmp = champ->next;
+      while (tmp != champ)
+	{
+	  if (champ->cmd->args_value[0] == tmp->reg[0])
+	    do_live(tmp, arena);
+	  tmp = tmp->next;
+	}
+    }
+  return (SUCCESS);
 }

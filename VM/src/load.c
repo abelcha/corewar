@@ -5,17 +5,17 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Apr  8 20:16:41 2014 chalie_a
-** Last update Thu Apr 10 17:20:17 2014 chalie_a
+** Last update Sun Apr 13 22:25:15 2014 chalie_a
 */
 
 #include "corewar.h"
 #include "vm.h"
 
-int	read_in_arena(char *buff,int pos, int size)
+static int	read_in_arena(char *buff, int pos, int size)
 {
-   int	k;
-   int	result;
-   
+   int		k;
+   int		result;
+
    result = 0;
    k = 0;
    while (k++ < size)
@@ -27,7 +27,7 @@ int	ins_ld(t_champ *champ, t_arena *arena)
 {
    int	result;
    int	mod;
- 
+
    mod = champ->cmd->op == 10 ? IDX_MOD : arena->mem_size;
    result = champ->cmd->args_value[0];
    if (result != 0)

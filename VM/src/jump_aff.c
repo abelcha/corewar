@@ -5,11 +5,10 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Tue Apr  8 20:16:41 2014 chalie_a
-** Last update Thu Apr 10 19:29:40 2014 chalie_a
+** Last update Sun Apr 13 18:11:09 2014 chalie_a
 */
 
 #include <unistd.h>
-#include "corewar.h"
 #include "vm.h"
 
 int	ins_zjmp(t_champ *champ, t_arena *arena)

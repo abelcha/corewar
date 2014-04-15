@@ -5,15 +5,10 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Thu Apr 10 18:28:32 2014 chalie_a
+** Last update Mon Apr 14 00:37:46 2014 chalie_a
 */
 
-#include <unistd.h>
-#include <fcntl.h>
 #include <stdlib.h>
-#include "corewar.h"
-#include "op.h"
-#include "x_colors.h"
 #include "vm.h"
 
 static t_champ		*init_root()
@@ -68,10 +63,7 @@ int			main(int ac, char **av)
   arena = init_arena(champ, sets->mem_size);
   if (arena == NULL)
     return (FAILURE);
-  display_arena(arena->arena, arena->mem_size);
-  display_sets(sets);
-  shw_list(champ);
-  start_battle(champ, arena, sets);
-  display_arena(arena->arena, arena->mem_size);
+  if (start_battle(champ, arena, sets) != DUMP)
+    the_game_is_over(champ, arena, sets);
   return (SUCCESS);
 }

@@ -5,20 +5,16 @@
 ** Login   <abel@chalier.me>
 ** 
 ** Started on  Fri Mar 28 12:20:06 2014 chalie_a
-** Last update Thu Apr 10 18:53:21 2014 chalie_a
+** Last update Sun Apr 13 22:14:07 2014 chalie_a
 */
 
 #include <unistd.h>
-#include <stdlib.h>
-#include "corewar.h"
-#include "op.h"
-#include "x_error.h"
-#include "x_colors.h"
 #include "vm.h"
+#include "my.h"
 
-static int		line_cmp(const char *str)
+static int		line_cmp(char *str)
 {
-  static const char	*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
+  static char		*tab[] = {"-dump", "-a", "-n", "-s", "-ctmo"};
   char			i;
 
   i = -1;
@@ -28,7 +24,7 @@ static int		line_cmp(const char *str)
   return (-1);
 }
 
-static int		fill_line(t_champ *champ, t_settings *sets, 
+static int		fill_line(t_champ *champ, t_settings *sets,
 				  const int cmp, const int value)
 {
   if (value < 0)
@@ -62,7 +58,9 @@ static int		add_in_list(t_champ *new_elem, t_champ *champ,
       champ->prev = new_elem;
       return (54815867);
     }
-  my_fprintf(STDERR_FILENO, "Error : '%s' is not a valid filename\n", str);
+  write(2, "Error : '", 10);
+  write(2, str, my_strlen(str));
+  write(2, "' is not a valid filename\n", 27);
   return (FAILURE);
 }
 
